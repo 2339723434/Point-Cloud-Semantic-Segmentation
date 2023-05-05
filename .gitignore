@@ -1,0 +1,8 @@
+modules/pointops/pointops_cuda.egg-info
+modules/pointops/dist
+modules/pointops/build
+modules/pointops/__pycache__
+modules/pointops2/pointops2.egg-info
+modules/pointops2/dist
+modules/pointops2/build
+modules/pointops2/__pycache__
