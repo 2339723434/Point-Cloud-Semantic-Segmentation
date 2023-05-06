@@ -28,7 +28,6 @@ from util.utils import AverageMeter, intersectionAndUnionGPU, find_free_port, ge
     get_scheduler, get_loop, get_aug_args, get_loss, get_dataset_obj, get_rgb_stat, worker_init_fn
 from util.data_util import collate_fn
 from util.utils import get_our_model, get_class_weights, set_seed, main_process, get_logger
-from dataloader.S3DISdataloader import S3DIS
 from torch.utils.data import DataLoader
 
 
@@ -473,7 +472,7 @@ if __name__ == '__main__':
     if args.dataset == 'S3DIS':
         args.num_class, args.voxel_max, args.voxel_size, args.in_channel, args.ignore_label = \
             13, 80000, 0.04, 6, 255
-        args.data_dir = './data/S3DIS/s3dis/trainval_fullarea'
+        args.data_dir = './data/S3DIS/trainval_fullarea'
         dataset_obj(args, 'train')
         dataset_obj(args, 'val')
     elif args.dataset == 'ScanNet_train':

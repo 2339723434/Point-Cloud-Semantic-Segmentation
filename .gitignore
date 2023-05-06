@@ -6,3 +6,10 @@ modules/pointops2/pointops2.egg-info
 modules/pointops2/dist
 modules/pointops2/build
 modules/pointops2/__pycache__
+modules/__pycache__
+dataset/__pycache__
+models/__pycache__
+util/__pycache__
+modules/pointops/functions/__pycache__
+modules/pointops2/functions/__pycache__
+models/CBFLNet/__pycache__

@@ -13,7 +13,7 @@ from dataset.S3DISDataLoader import S3DIS
 from dataset.ScannetDataLoader import ScanNet
 
 from modules.pointops.functions import pointops
-from models.pointmixer.pointmixer import PointMixerBlock
+
 
 def main_process(args):
     """
@@ -219,10 +219,12 @@ def get_model(args):
     module = importlib.import_module('models.%s' % args.model)
     return module.Model(args)
 
+""" 
 def get_mixer_model(args):
     module = importlib.import_module('models.%s' % args.model)
     #print(module)
-    return module.Model(PointMixerBlock, [2, 3, 4, 6, 3], args)
+    return module.Model(PointMixerBlock, [2, 3, 4, 6, 3], args) 
+"""
     
 def get_our_model(args):
     module = importlib.import_module('models.%s' % args.model)
