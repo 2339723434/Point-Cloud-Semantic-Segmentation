@@ -2,7 +2,7 @@
 Author: Cong Peng
 Date: 11/10/2022
 """
-
+import sys
 import torch
 import torch.nn as nn
 import numpy as np
@@ -11,6 +11,7 @@ import torch.nn.functional as F
 import math
 import pdb
 import random
+import gc
 
 from modules.repsurface_utils import UmbrellaSurfaceConstructor, SurfaceAbstractionCD, SurfaceFeaturePropagationCD
 from einops import rearrange, reduce, repeat
@@ -28,14 +29,15 @@ class Model(nn.Module):
         center_channel = 6 if args.return_polar else 3
         repsurf_in_channel = 10
         repsurf_out_channel = 10
+        k_sample = 16
 
-        self.sa1 = SurfaceAbstractionCD(4, 32, args.in_channel + repsurf_out_channel, center_channel, [32, 32, 64],
+        self.sa1 = SurfaceAbstractionCD(4, k_sample, args.in_channel + repsurf_out_channel, center_channel, [32, 32, 64],
                                         True, args.return_polar, num_sector=4)                                                                        
-        self.sa2 = SurfaceAbstractionCD(4, 32, 64 + repsurf_out_channel, center_channel, [64, 64, 128],
+        self.sa2 = SurfaceAbstractionCD(4, k_sample, 64 + repsurf_out_channel, center_channel, [64, 64, 128],
                                         True, args.return_polar)
-        self.sa3 = SurfaceAbstractionCD(4, 32, 128 + repsurf_out_channel, center_channel, [128, 128, 256],
+        self.sa3 = SurfaceAbstractionCD(4, k_sample, 128 + repsurf_out_channel, center_channel, [128, 128, 256],
                                         True, args.return_polar)
-        self.sa4 = SurfaceAbstractionCD(4, 32, 256 + repsurf_out_channel, center_channel, [256, 256, 512],
+        self.sa4 = SurfaceAbstractionCD(4, k_sample, 256 + repsurf_out_channel, center_channel, [256, 256, 512],
                                         True, args.return_polar)                         
                                         
         self.fp4 = SurfaceFeaturePropagationCD(512, 256, [256, 256])
@@ -63,19 +65,17 @@ class Model(nn.Module):
             pos_feat_off0[2]
         ]
         #torch.Size([213099, 3]) torch.Size([213099, 10]) torch.Size([213099, 6]) 
-        
         pos_nor_feat_off1 = self.sa1(pos_nor_feat_off0) #torch.Size([53301, 64])
         pos_nor_feat_off2 = self.sa2(pos_nor_feat_off1) #torch.Size([13324, 128])
         pos_nor_feat_off3 = self.sa3(pos_nor_feat_off2) #torch.Size([3330, 256])
         pos_nor_feat_off4 = self.sa4(pos_nor_feat_off3) #torch.Size([831, 512])
-       
+        
         del pos_nor_feat_off0[1], pos_nor_feat_off1[1], pos_nor_feat_off2[1], pos_nor_feat_off3[1], pos_nor_feat_off4[1]
         pos_nor_feat_off3[1] = self.fp4(pos_nor_feat_off3, pos_nor_feat_off4) #torch.Size([3330, 256])
-        pos_nor_feat_off2[1] = self.fp3(pos_nor_feat_off2, pos_nor_feat_off3) #torch.Size([13324, 256])       
+        pos_nor_feat_off2[1] = self.fp3(pos_nor_feat_off2, pos_nor_feat_off3) #torch.Size([13324, 256])    
         pos_nor_feat_off1[1] = self.fp2(pos_nor_feat_off1, pos_nor_feat_off2) #torch.Size([53301, 128])
         pos_nor_feat_off0[1] = self.fp1([pos_nor_feat_off0[0], None, pos_nor_feat_off0[2]], pos_nor_feat_off1) #torch.Size([213209, 128])
-        
-        #del pos_nor_feat_off1, pos_nor_feat_off2, pos_nor_feat_off3, pos_nor_feat_off4, pos_nor_feat_off0[0]
+        #del pos_nor_feat_off1, pos_nor_feat_off2, pos_nor_feat_off3, pos_nor_feat_off4
 
         feature = self.classifier(pos_nor_feat_off0[1])
 

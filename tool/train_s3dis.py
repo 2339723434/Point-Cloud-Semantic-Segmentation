@@ -27,7 +27,7 @@ from modules.aug_utils import transform_point_cloud_coord, transform_point_cloud
 from util.utils import AverageMeter, intersectionAndUnionGPU, find_free_port, get_dataset_description, get_optimizer, \
     get_scheduler, get_loop, get_aug_args, get_loss, get_dataset_obj, get_rgb_stat, worker_init_fn
 from util.data_util import collate_fn
-from util.utils import get_our_model, get_class_weights, set_seed, main_process, get_logger
+from util.utils import get_model, get_class_weights, set_seed, main_process, get_logger
 from torch.utils.data import DataLoader
 
 
@@ -124,7 +124,7 @@ def main_worker(gpu, ngpus_per_node, argss):
 
     print("""MODEL BUILDING""")
     # model
-    model = get_our_model(args)
+    model = get_model(args)
 
     if main_process(args):
         global logger, writer
@@ -163,12 +163,7 @@ def main_worker(gpu, ngpus_per_node, argss):
     dataset_obj = get_dataset_obj(args)
     rgb_mean, rgb_std = get_rgb_stat(args)
     
-    """
-    train_loader = DataLoader(S3DIS(partition='train', num_points=4096, test_area=args.test_area), 
-                              num_workers=args.workers, batch_size=args.batch_size, shuffle=True, drop_last=True, collate_fn=collate_fn)
-    val_loader = DataLoader(S3DIS(partition='test', num_points=4096, test_area=args.test_area), 
-                            num_workers=args.workers, batch_size=args.batch_size_val, shuffle=True, drop_last=False, collate_fn=collate_fn)
-    """
+
     if 'trainval' not in args.dataset:
         TRAIN_DATASET = dataset_obj(args, 'train', coord_transform, rgb_transform, rgb_mean, rgb_std, True)
         VAL_DATASET = dataset_obj(args, 'val', None, None, rgb_mean, rgb_std, False)
@@ -350,6 +345,9 @@ def train(train_loader, model, criterion, optimizer, epoch):
             writer.add_scalar('mIoU_train_batch', np.mean(intersection / (union + 1e-10)), current_iter)
             writer.add_scalar('mAcc_train_batch', np.mean(intersection / (target + 1e-10)), current_iter)
             writer.add_scalar('allAcc_train_batch', accuracy, current_iter)
+        
+        del coord, feat, target, offset, loss
+        torch.cuda.empty_cache()
 
     print('end')
     iou_class = intersection_meter.sum / (union_meter.sum + 1e-10)
@@ -437,7 +435,7 @@ if __name__ == '__main__':
 
     """HYPER PARAMETER"""
     args = parse_args()
-    os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+    os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 
     """DDP SETTING"""
     args.dist_url = 'tcp://localhost:8888'

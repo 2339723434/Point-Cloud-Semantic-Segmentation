@@ -332,7 +332,7 @@ class SurfaceFeaturePropagationCD(nn.Module):
         self.mlp_convs = nn.ModuleList()
         self.mlp_bns = nn.ModuleList()
         self.skip = skip_channel is not None
-        self.nsample = 32
+        self.nsample = 16
         self.transup = SymmetricTransitionUpBlock(prev_channel, skip_channel, 32)
 
         self.mlp_f0 = nn.Linear(prev_channel, mlp[0])

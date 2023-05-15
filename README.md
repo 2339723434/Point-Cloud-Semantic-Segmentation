@@ -17,7 +17,7 @@ pip install torch-scatter -f https://data.pyg.org/whl/torch-1.8.0%2Bcu111.html
 cd modules/pointops
 python3 setup.py install
 
-cd ../pointops
+cd ../pointops2
 python3 setup.py install
 ```
 

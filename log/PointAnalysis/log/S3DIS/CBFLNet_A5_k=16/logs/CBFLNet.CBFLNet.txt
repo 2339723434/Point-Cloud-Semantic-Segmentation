@@ -1,0 +1,833 @@
+[2023-05-14 15:00:20,440 INFO train_s3dis.py line 133 1708190] {
+    "aug_args": {
+        "pert_factor": 0.03,
+        "pert_prob": 1.0,
+        "rot_prob": 0.5,
+        "scale_ani": true,
+        "scale_factor": 0.1,
+        "scale_prob": 1.0,
+        "shift_prob": 1.0,
+        "shifts": [
+            0.1,
+            0.1,
+            0.1
+        ]
+    },
+    "aug_flip": false,
+    "aug_jitter": false,
+    "aug_rotate": null,
+    "aug_scale": true,
+    "aug_shift": false,
+    "batch_size": 4,
+    "batch_size_val": 4,
+    "ckpt_dir": "log/PointAnalysis/log/S3DIS/CBFLNet_A5_k=16/checkpoints",
+    "color_contrast": true,
+    "color_drop": false,
+    "color_jitter": true,
+    "color_shift": true,
+    "data_dir": "./data/S3DIS/trainval_fullarea",
+    "data_norm": "mean",
+    "dataset": "S3DIS",
+    "description": "S3DIS_A5",
+    "dist_url": "tcp://localhost:8888",
+    "distributed": false,
+    "downsample": [
+        1,
+        4,
+        4,
+        4,
+        4
+    ],
+    "epoch": 300,
+    "fea_dim": 6,
+    "freeze_epoch": 1000000.0,
+    "gpus": [
+        "0"
+    ],
+    "group_size": 8,
+    "hs_shift": true,
+    "ignore_label": 255,
+    "in_channel": 6,
+    "is_eval": true,
+    "learning_rate": 0.006,
+    "log_dir": "log/PointAnalysis/log/S3DIS/CBFLNet_A5_k=16/logs",
+    "log_root": "./log",
+    "loop": 30,
+    "lr_decay": 0.1,
+    "lr_decay_epochs": [
+        60,
+        80
+    ],
+    "min_val": 60,
+    "model": "CBFLNet.CBFLNet",
+    "momentum": 0.9,
+    "multiprocessing_distributed": false,
+    "ngpus_per_node": 1,
+    "nsample": [
+        8,
+        16,
+        16,
+        16,
+        16
+    ],
+    "num_class": 13,
+    "optimizer": "AdamW",
+    "pretrain": null,
+    "rank": 0,
+    "resume": null,
+    "return_polar": false,
+    "scheduler": "step",
+    "seed": 2000,
+    "start_epoch": 0,
+    "sync_bn": false,
+    "test_area": 5,
+    "train_freq": 250,
+    "val_freq": 1,
+    "voxel_max": 80000,
+    "voxel_size": 0.04,
+    "weight_decay": 0.01,
+    "workers": 8,
+    "world_size": 1
+}
+[2023-05-14 15:00:20,440 INFO train_s3dis.py line 134 1708190] => creating models ...
+[2023-05-14 15:00:20,440 INFO train_s3dis.py line 135 1708190] Classes: 13
+[2023-05-14 15:00:20,440 INFO train_s3dis.py line 136 1708190] Model(
+  (sa1): SurfaceAbstractionCD(
+    (mlp_convs): ModuleList(
+      (0): Conv1d(32, 32, kernel_size=(1,), stride=(1,))
+      (1): Conv1d(32, 64, kernel_size=(1,), stride=(1,))
+    )
+    (mlp_bns): ModuleList(
+      (0): BatchNorm1d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (1): BatchNorm1d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+    (mlp_l0): Conv1d(3, 32, kernel_size=(1,), stride=(1,))
+    (mlp_f0): Conv1d(16, 32, kernel_size=(1,), stride=(1,))
+    (bn_l0): BatchNorm1d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (bn_f0): BatchNorm1d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  )
+  (sa2): SurfaceAbstractionCD(
+    (mlp_convs): ModuleList(
+      (0): Conv1d(64, 64, kernel_size=(1,), stride=(1,))
+      (1): Conv1d(64, 128, kernel_size=(1,), stride=(1,))
+    )
+    (mlp_bns): ModuleList(
+      (0): BatchNorm1d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (1): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+    (mlp_l0): Conv1d(3, 64, kernel_size=(1,), stride=(1,))
+    (mlp_f0): Conv1d(74, 64, kernel_size=(1,), stride=(1,))
+    (bn_l0): BatchNorm1d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (bn_f0): BatchNorm1d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  )
+  (sa3): SurfaceAbstractionCD(
+    (mlp_convs): ModuleList(
+      (0): Conv1d(128, 128, kernel_size=(1,), stride=(1,))
+      (1): Conv1d(128, 256, kernel_size=(1,), stride=(1,))
+    )
+    (mlp_bns): ModuleList(
+      (0): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (1): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+    (mlp_l0): Conv1d(3, 128, kernel_size=(1,), stride=(1,))
+    (mlp_f0): Conv1d(138, 128, kernel_size=(1,), stride=(1,))
+    (bn_l0): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (bn_f0): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  )
+  (sa4): SurfaceAbstractionCD(
+    (mlp_convs): ModuleList(
+      (0): Conv1d(256, 256, kernel_size=(1,), stride=(1,))
+      (1): Conv1d(256, 512, kernel_size=(1,), stride=(1,))
+    )
+    (mlp_bns): ModuleList(
+      (0): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (1): BatchNorm1d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+    (mlp_l0): Conv1d(3, 256, kernel_size=(1,), stride=(1,))
+    (mlp_f0): Conv1d(266, 256, kernel_size=(1,), stride=(1,))
+    (bn_l0): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (bn_f0): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  )
+  (fp4): SurfaceFeaturePropagationCD(
+    (mlp_convs): ModuleList(
+      (0): Linear(in_features=256, out_features=256, bias=True)
+    )
+    (mlp_bns): ModuleList(
+      (0): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+    (transup): SymmetricTransitionUpBlock(
+      (linear1): Sequential(
+        (0): Linear(in_features=256, out_features=256, bias=False)
+        (1): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): ReLU(inplace=True)
+      )
+      (linear2): Sequential(
+        (0): Linear(in_features=512, out_features=256, bias=False)
+        (1): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): ReLU(inplace=True)
+      )
+      (channel_shrinker): Sequential(
+        (0): Linear(in_features=515, out_features=512, bias=False)
+        (1): BatchNorm1d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): ReLU(inplace=True)
+        (3): Linear(in_features=512, out_features=1, bias=True)
+      )
+    )
+    (mlp_f0): Linear(in_features=512, out_features=256, bias=True)
+    (norm_f0): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (mlp_f1): Linear(in_features=256, out_features=256, bias=True)
+    (norm_f1): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (mlp_s0): Linear(in_features=256, out_features=256, bias=True)
+    (norm_s0): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  )
+  (fp3): SurfaceFeaturePropagationCD(
+    (mlp_convs): ModuleList(
+      (0): Linear(in_features=256, out_features=256, bias=True)
+    )
+    (mlp_bns): ModuleList(
+      (0): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+    (transup): SymmetricTransitionUpBlock(
+      (linear1): Sequential(
+        (0): Linear(in_features=128, out_features=128, bias=False)
+        (1): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): ReLU(inplace=True)
+      )
+      (linear2): Sequential(
+        (0): Linear(in_features=256, out_features=128, bias=False)
+        (1): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): ReLU(inplace=True)
+      )
+      (channel_shrinker): Sequential(
+        (0): Linear(in_features=259, out_features=256, bias=False)
+        (1): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): ReLU(inplace=True)
+        (3): Linear(in_features=256, out_features=1, bias=True)
+      )
+    )
+    (mlp_f0): Linear(in_features=256, out_features=256, bias=True)
+    (norm_f0): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (mlp_f1): Linear(in_features=128, out_features=256, bias=True)
+    (norm_f1): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (mlp_s0): Linear(in_features=128, out_features=256, bias=True)
+    (norm_s0): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  )
+  (fp2): SurfaceFeaturePropagationCD(
+    (mlp_convs): ModuleList(
+      (0): Linear(in_features=256, out_features=128, bias=True)
+    )
+    (mlp_bns): ModuleList(
+      (0): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+    (transup): SymmetricTransitionUpBlock(
+      (linear1): Sequential(
+        (0): Linear(in_features=64, out_features=64, bias=False)
+        (1): BatchNorm1d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): ReLU(inplace=True)
+      )
+      (linear2): Sequential(
+        (0): Linear(in_features=256, out_features=64, bias=False)
+        (1): BatchNorm1d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): ReLU(inplace=True)
+      )
+      (channel_shrinker): Sequential(
+        (0): Linear(in_features=259, out_features=256, bias=False)
+        (1): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): ReLU(inplace=True)
+        (3): Linear(in_features=256, out_features=1, bias=True)
+      )
+    )
+    (mlp_f0): Linear(in_features=256, out_features=256, bias=True)
+    (norm_f0): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (mlp_f1): Linear(in_features=64, out_features=256, bias=True)
+    (norm_f1): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (mlp_s0): Linear(in_features=64, out_features=256, bias=True)
+    (norm_s0): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  )
+  (fp1): SurfaceFeaturePropagationCD(
+    (mlp_convs): ModuleList(
+      (0): Linear(in_features=128, out_features=128, bias=True)
+      (1): Linear(in_features=128, out_features=128, bias=True)
+    )
+    (mlp_bns): ModuleList(
+      (0): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (1): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+    (transup): SymmetricTransitionUpBlock(
+      (linear1): Sequential(
+        (0): Linear(in_features=256, out_features=128, bias=False)
+        (1): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): ReLU(inplace=True)
+      )
+      (linear2): Sequential(
+        (0): Linear(in_features=128, out_features=128, bias=True)
+        (1): ReLU(inplace=True)
+      )
+    )
+    (mlp_f0): Linear(in_features=128, out_features=128, bias=True)
+    (norm_f0): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  )
+  (classifier): Sequential(
+    (0): Linear(in_features=128, out_features=128, bias=True)
+    (1): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): ReLU(inplace=True)
+    (3): Dropout(p=0.5, inplace=False)
+    (4): Linear(in_features=128, out_features=13, bias=True)
+  )
+  (surface_constructor): UmbrellaSurfaceConstructor(
+    (mlps): Sequential(
+      (0): Conv1d(10, 10, kernel_size=(1,), stride=(1,))
+      (1): BatchNorm1d(10, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (2): ReLU(inplace=True)
+      (3): Conv1d(10, 10, kernel_size=(1,), stride=(1,))
+    )
+  )
+)
+[2023-05-14 15:00:20,443 INFO train_s3dis.py line 139 1708190] Total Number of Parameters: 1.810 M
+[2023-05-14 15:00:23,783 INFO train_s3dis.py line 172 1708190] Totally 204 samples in train set.
+[2023-05-14 15:00:23,784 INFO train_s3dis.py line 173 1708190] Totally 68 samples in val set.
+[2023-05-14 15:03:20,850 INFO train_s3dis.py line 336 1708190] Epoch: [1/300][250/1530] Batch 0.787 (0.708) Remain 90:15:13 Loss 1.3048 Accuracy 64.76
+[2023-05-14 15:06:20,319 INFO train_s3dis.py line 336 1708190] Epoch: [1/300][500/1530] Batch 0.644 (0.713) Remain 90:49:01 Loss 0.7213 Accuracy 73.64
+[2023-05-14 15:09:12,054 INFO train_s3dis.py line 336 1708190] Epoch: [1/300][750/1530] Batch 0.484 (0.704) Remain 89:39:31 Loss 0.8718 Accuracy 72.45
+[2023-05-14 15:12:06,334 INFO train_s3dis.py line 336 1708190] Epoch: [1/300][1000/1530] Batch 0.993 (0.703) Remain 89:22:46 Loss 1.0251 Accuracy 64.63
+[2023-05-14 15:15:01,675 INFO train_s3dis.py line 336 1708190] Epoch: [1/300][1250/1530] Batch 0.739 (0.702) Remain 89:18:02 Loss 0.7557 Accuracy 78.13
+[2023-05-14 15:17:54,061 INFO train_s3dis.py line 336 1708190] Epoch: [1/300][1500/1530] Batch 0.622 (0.700) Remain 88:58:53 Loss 0.5885 Accuracy 76.08
+[2023-05-14 15:18:14,516 INFO train_s3dis.py line 364 1708190] Train result at epoch [1/300]: mIoU / mAcc / OA 43.33 / 62.15 / 70.49
+[2023-05-14 15:21:16,012 INFO train_s3dis.py line 336 1708190] Epoch: [2/300][250/1530] Batch 0.766 (0.726) Remain 92:12:06 Loss 0.5154 Accuracy 81.19
+[2023-05-14 15:24:10,122 INFO train_s3dis.py line 336 1708190] Epoch: [2/300][500/1530] Batch 0.601 (0.711) Remain 90:16:37 Loss 0.7710 Accuracy 75.63
+[2023-05-14 15:27:03,729 INFO train_s3dis.py line 336 1708190] Epoch: [2/300][750/1530] Batch 0.914 (0.706) Remain 89:31:06 Loss 0.6595 Accuracy 76.15
+[2023-05-14 15:29:56,266 INFO train_s3dis.py line 336 1708190] Epoch: [2/300][1000/1530] Batch 0.495 (0.702) Remain 88:58:45 Loss 0.3857 Accuracy 86.78
+[2023-05-14 15:32:53,613 INFO train_s3dis.py line 336 1708190] Epoch: [2/300][1250/1530] Batch 0.796 (0.703) Remain 89:07:26 Loss 0.5956 Accuracy 80.55
+[2023-05-14 15:35:53,419 INFO train_s3dis.py line 336 1708190] Epoch: [2/300][1500/1530] Batch 0.679 (0.706) Remain 89:24:43 Loss 0.5104 Accuracy 84.86
+[2023-05-14 15:36:14,013 INFO train_s3dis.py line 364 1708190] Train result at epoch [2/300]: mIoU / mAcc / OA 58.09 / 78.96 / 79.62
+[2023-05-14 15:39:16,248 INFO train_s3dis.py line 336 1708190] Epoch: [3/300][250/1530] Batch 0.660 (0.729) Remain 92:16:03 Loss 0.3215 Accuracy 88.41
+[2023-05-14 15:42:11,524 INFO train_s3dis.py line 336 1708190] Epoch: [3/300][500/1530] Batch 0.702 (0.715) Remain 90:27:24 Loss 0.5977 Accuracy 80.99
+[2023-05-14 15:45:02,638 INFO train_s3dis.py line 336 1708190] Epoch: [3/300][750/1530] Batch 0.608 (0.705) Remain 89:07:09 Loss 0.3720 Accuracy 84.58
+[2023-05-14 15:47:56,229 INFO train_s3dis.py line 336 1708190] Epoch: [3/300][1000/1530] Batch 0.880 (0.702) Remain 88:44:23 Loss 0.3747 Accuracy 85.27
+[2023-05-14 15:50:50,791 INFO train_s3dis.py line 336 1708190] Epoch: [3/300][1250/1530] Batch 0.732 (0.701) Remain 88:35:27 Loss 0.4360 Accuracy 81.29
+[2023-05-14 15:53:46,004 INFO train_s3dis.py line 336 1708190] Epoch: [3/300][1500/1530] Batch 0.531 (0.701) Remain 88:31:48 Loss 0.3185 Accuracy 86.75
+[2023-05-14 15:54:07,673 INFO train_s3dis.py line 364 1708190] Train result at epoch [3/300]: mIoU / mAcc / OA 66.09 / 85.79 / 83.88
+[2023-05-14 15:57:10,733 INFO train_s3dis.py line 336 1708190] Epoch: [4/300][250/1530] Batch 0.678 (0.732) Remain 92:22:28 Loss 0.5112 Accuracy 82.61
+[2023-05-14 16:00:03,718 INFO train_s3dis.py line 336 1708190] Epoch: [4/300][500/1530] Batch 0.667 (0.712) Remain 89:47:01 Loss 0.4538 Accuracy 84.93
+[2023-05-14 16:02:59,334 INFO train_s3dis.py line 336 1708190] Epoch: [4/300][750/1530] Batch 0.544 (0.709) Remain 89:19:48 Loss 0.2982 Accuracy 87.61
+[2023-05-14 16:05:51,202 INFO train_s3dis.py line 336 1708190] Epoch: [4/300][1000/1530] Batch 0.731 (0.704) Remain 88:36:24 Loss 0.3904 Accuracy 84.89
+[2023-05-14 16:08:49,012 INFO train_s3dis.py line 336 1708190] Epoch: [4/300][1250/1530] Batch 0.981 (0.705) Remain 88:45:08 Loss 0.5494 Accuracy 82.25
+[2023-05-14 16:11:50,478 INFO train_s3dis.py line 336 1708190] Epoch: [4/300][1500/1530] Batch 0.852 (0.709) Remain 89:08:21 Loss 0.2129 Accuracy 92.45
+[2023-05-14 16:12:11,110 INFO train_s3dis.py line 364 1708190] Train result at epoch [4/300]: mIoU / mAcc / OA 69.77 / 88.18 / 85.94
+[2023-05-14 16:15:06,065 INFO train_s3dis.py line 336 1708190] Epoch: [5/300][250/1530] Batch 0.959 (0.700) Remain 87:59:09 Loss 0.4088 Accuracy 83.30
+[2023-05-14 16:18:00,276 INFO train_s3dis.py line 336 1708190] Epoch: [5/300][500/1530] Batch 0.559 (0.698) Remain 87:45:06 Loss 0.5256 Accuracy 80.60
+[2023-05-14 16:20:56,308 INFO train_s3dis.py line 336 1708190] Epoch: [5/300][750/1530] Batch 0.544 (0.700) Remain 87:56:46 Loss 0.5655 Accuracy 83.08
+[2023-05-14 16:23:55,402 INFO train_s3dis.py line 336 1708190] Epoch: [5/300][1000/1530] Batch 0.723 (0.704) Remain 88:24:12 Loss 0.3407 Accuracy 84.80
+[2023-05-14 16:26:54,444 INFO train_s3dis.py line 336 1708190] Epoch: [5/300][1250/1530] Batch 0.508 (0.707) Remain 88:39:09 Loss 0.2184 Accuracy 89.83
+[2023-05-14 16:29:47,345 INFO train_s3dis.py line 336 1708190] Epoch: [5/300][1500/1530] Batch 0.674 (0.704) Remain 88:17:19 Loss 0.1569 Accuracy 93.05
+[2023-05-14 16:30:07,670 INFO train_s3dis.py line 364 1708190] Train result at epoch [5/300]: mIoU / mAcc / OA 73.37 / 90.28 / 87.74
+[2023-05-14 16:33:19,306 INFO train_s3dis.py line 336 1708190] Epoch: [6/300][250/1530] Batch 0.637 (0.767) Remain 96:03:01 Loss 0.3370 Accuracy 85.79
+[2023-05-14 16:36:18,461 INFO train_s3dis.py line 336 1708190] Epoch: [6/300][500/1530] Batch 0.764 (0.742) Remain 92:52:18 Loss 0.1890 Accuracy 92.84
+[2023-05-14 16:39:12,171 INFO train_s3dis.py line 336 1708190] Epoch: [6/300][750/1530] Batch 0.659 (0.726) Remain 90:52:13 Loss 0.3313 Accuracy 89.15
+[2023-05-14 16:42:04,892 INFO train_s3dis.py line 336 1708190] Epoch: [6/300][1000/1530] Batch 0.578 (0.717) Remain 89:43:18 Loss 0.2176 Accuracy 91.27
+[2023-05-14 16:45:00,886 INFO train_s3dis.py line 336 1708190] Epoch: [6/300][1250/1530] Batch 0.723 (0.715) Remain 89:20:26 Loss 0.2255 Accuracy 90.56
+[2023-05-14 16:47:57,281 INFO train_s3dis.py line 336 1708190] Epoch: [6/300][1500/1530] Batch 0.619 (0.713) Remain 89:06:14 Loss 0.2793 Accuracy 88.02
+[2023-05-14 16:48:18,953 INFO train_s3dis.py line 364 1708190] Train result at epoch [6/300]: mIoU / mAcc / OA 75.80 / 91.56 / 89.06
+[2023-05-14 16:51:21,663 INFO train_s3dis.py line 336 1708190] Epoch: [7/300][250/1530] Batch 0.829 (0.731) Remain 91:15:55 Loss 0.1689 Accuracy 91.90
+[2023-05-14 16:54:19,294 INFO train_s3dis.py line 336 1708190] Epoch: [7/300][500/1530] Batch 0.762 (0.721) Remain 89:56:52 Loss 0.4759 Accuracy 80.36
+[2023-05-14 16:57:19,455 INFO train_s3dis.py line 336 1708190] Epoch: [7/300][750/1530] Batch 0.796 (0.721) Remain 89:53:47 Loss 0.2114 Accuracy 89.98
+[2023-05-14 17:00:10,624 INFO train_s3dis.py line 336 1708190] Epoch: [7/300][1000/1530] Batch 0.694 (0.712) Remain 88:43:29 Loss 0.2401 Accuracy 92.16
+[2023-05-14 17:03:07,237 INFO train_s3dis.py line 336 1708190] Epoch: [7/300][1250/1530] Batch 0.833 (0.711) Remain 88:32:43 Loss 0.2834 Accuracy 88.35
+[2023-05-14 17:05:57,782 INFO train_s3dis.py line 336 1708190] Epoch: [7/300][1500/1530] Batch 0.661 (0.706) Remain 87:54:20 Loss 0.2707 Accuracy 90.48
+[2023-05-14 17:06:17,995 INFO train_s3dis.py line 364 1708190] Train result at epoch [7/300]: mIoU / mAcc / OA 77.76 / 92.47 / 89.96
+[2023-05-14 17:09:19,831 INFO train_s3dis.py line 336 1708190] Epoch: [8/300][250/1530] Batch 0.713 (0.727) Remain 90:31:12 Loss 0.1780 Accuracy 93.73
+[2023-05-14 17:12:17,367 INFO train_s3dis.py line 336 1708190] Epoch: [8/300][500/1530] Batch 0.557 (0.719) Remain 89:24:02 Loss 0.1839 Accuracy 93.26
+[2023-05-14 17:15:10,427 INFO train_s3dis.py line 336 1708190] Epoch: [8/300][750/1530] Batch 0.705 (0.710) Remain 88:15:09 Loss 0.3310 Accuracy 83.94
+[2023-05-14 17:18:04,901 INFO train_s3dis.py line 336 1708190] Epoch: [8/300][1000/1530] Batch 0.574 (0.707) Remain 87:49:49 Loss 0.1837 Accuracy 90.33
+[2023-05-14 17:21:01,926 INFO train_s3dis.py line 336 1708190] Epoch: [8/300][1250/1530] Batch 0.810 (0.707) Remain 87:48:40 Loss 0.3521 Accuracy 86.23
+[2023-05-14 17:23:59,349 INFO train_s3dis.py line 336 1708190] Epoch: [8/300][1500/1530] Batch 0.732 (0.708) Remain 87:48:53 Loss 0.1527 Accuracy 93.31
+[2023-05-14 17:24:19,583 INFO train_s3dis.py line 364 1708190] Train result at epoch [8/300]: mIoU / mAcc / OA 79.19 / 93.06 / 90.75
+[2023-05-14 17:27:20,301 INFO train_s3dis.py line 336 1708190] Epoch: [9/300][250/1530] Batch 0.681 (0.723) Remain 89:39:20 Loss 0.2283 Accuracy 89.37
+[2023-05-14 17:30:19,776 INFO train_s3dis.py line 336 1708190] Epoch: [9/300][500/1530] Batch 0.527 (0.720) Remain 89:17:55 Loss 0.1274 Accuracy 95.04
+[2023-05-14 17:33:12,961 INFO train_s3dis.py line 336 1708190] Epoch: [9/300][750/1530] Batch 0.587 (0.711) Remain 88:06:26 Loss 0.1630 Accuracy 93.80
+[2023-05-14 17:36:12,975 INFO train_s3dis.py line 336 1708190] Epoch: [9/300][1000/1530] Batch 0.667 (0.713) Remain 88:19:58 Loss 0.1818 Accuracy 91.13
+[2023-05-14 17:39:07,402 INFO train_s3dis.py line 336 1708190] Epoch: [9/300][1250/1530] Batch 0.687 (0.710) Remain 87:53:43 Loss 0.3100 Accuracy 85.18
+[2023-05-14 17:41:59,169 INFO train_s3dis.py line 336 1708190] Epoch: [9/300][1500/1530] Batch 0.662 (0.706) Remain 87:22:05 Loss 0.2021 Accuracy 91.00
+[2023-05-14 17:42:21,214 INFO train_s3dis.py line 364 1708190] Train result at epoch [9/300]: mIoU / mAcc / OA 81.00 / 93.90 / 91.58
+[2023-05-14 17:45:18,528 INFO train_s3dis.py line 336 1708190] Epoch: [10/300][250/1530] Batch 0.529 (0.709) Remain 87:40:00 Loss 0.2032 Accuracy 88.57
+[2023-05-14 17:48:12,550 INFO train_s3dis.py line 336 1708190] Epoch: [10/300][500/1530] Batch 0.813 (0.703) Remain 86:48:16 Loss 0.2609 Accuracy 89.23
+[2023-05-14 17:51:06,305 INFO train_s3dis.py line 336 1708190] Epoch: [10/300][750/1530] Batch 0.703 (0.700) Remain 86:26:27 Loss 0.2099 Accuracy 90.80
+[2023-05-14 17:54:12,573 INFO train_s3dis.py line 336 1708190] Epoch: [10/300][1000/1530] Batch 0.714 (0.711) Remain 87:46:45 Loss 0.1302 Accuracy 94.53
+[2023-05-14 17:57:10,292 INFO train_s3dis.py line 336 1708190] Epoch: [10/300][1250/1530] Batch 0.549 (0.711) Remain 87:43:04 Loss 0.2950 Accuracy 88.97
+[2023-05-14 18:00:08,337 INFO train_s3dis.py line 336 1708190] Epoch: [10/300][1500/1530] Batch 0.778 (0.711) Remain 87:41:14 Loss 0.1696 Accuracy 93.10
+[2023-05-14 18:00:30,336 INFO train_s3dis.py line 364 1708190] Train result at epoch [10/300]: mIoU / mAcc / OA 80.82 / 93.85 / 91.59
+[2023-05-14 18:03:32,004 INFO train_s3dis.py line 336 1708190] Epoch: [11/300][250/1530] Batch 0.838 (0.727) Remain 89:30:34 Loss 0.2123 Accuracy 91.79
+[2023-05-14 18:06:32,546 INFO train_s3dis.py line 336 1708190] Epoch: [11/300][500/1530] Batch 0.528 (0.724) Remain 89:10:58 Loss 0.1368 Accuracy 93.79
+[2023-05-14 18:09:22,655 INFO train_s3dis.py line 336 1708190] Epoch: [11/300][750/1530] Batch 0.723 (0.710) Remain 87:19:44 Loss 0.2459 Accuracy 89.63
+[2023-05-14 18:12:23,361 INFO train_s3dis.py line 336 1708190] Epoch: [11/300][1000/1530] Batch 0.685 (0.713) Remain 87:40:53 Loss 0.1504 Accuracy 93.55
+[2023-05-14 18:15:20,098 INFO train_s3dis.py line 336 1708190] Epoch: [11/300][1250/1530] Batch 0.554 (0.712) Remain 87:28:57 Loss 0.1128 Accuracy 94.66
+[2023-05-14 18:18:17,364 INFO train_s3dis.py line 336 1708190] Epoch: [11/300][1500/1530] Batch 0.952 (0.711) Remain 87:22:37 Loss 0.3031 Accuracy 91.20
+[2023-05-14 18:18:36,873 INFO train_s3dis.py line 364 1708190] Train result at epoch [11/300]: mIoU / mAcc / OA 81.91 / 94.28 / 92.07
+[2023-05-14 18:21:34,573 INFO train_s3dis.py line 336 1708190] Epoch: [12/300][250/1530] Batch 0.836 (0.711) Remain 87:15:11 Loss 0.2451 Accuracy 93.28
+[2023-05-14 18:24:36,488 INFO train_s3dis.py line 336 1708190] Epoch: [12/300][500/1530] Batch 0.717 (0.719) Remain 88:14:19 Loss 0.1505 Accuracy 92.47
+[2023-05-14 18:27:37,160 INFO train_s3dis.py line 336 1708190] Epoch: [12/300][750/1530] Batch 0.710 (0.720) Remain 88:19:48 Loss 0.1770 Accuracy 91.33
+[2023-05-14 18:30:35,312 INFO train_s3dis.py line 336 1708190] Epoch: [12/300][1000/1530] Batch 0.844 (0.718) Remain 88:02:31 Loss 0.1373 Accuracy 93.32
+[2023-05-14 18:33:31,658 INFO train_s3dis.py line 336 1708190] Epoch: [12/300][1250/1530] Batch 0.696 (0.716) Remain 87:40:21 Loss 0.1721 Accuracy 90.84
+[2023-05-14 18:36:27,345 INFO train_s3dis.py line 336 1708190] Epoch: [12/300][1500/1530] Batch 0.773 (0.714) Remain 87:21:21 Loss 0.1589 Accuracy 92.10
+[2023-05-14 18:36:47,311 INFO train_s3dis.py line 364 1708190] Train result at epoch [12/300]: mIoU / mAcc / OA 84.03 / 95.07 / 93.01
+[2023-05-14 18:39:45,128 INFO train_s3dis.py line 336 1708190] Epoch: [13/300][250/1530] Batch 0.696 (0.711) Remain 87:00:26 Loss 0.1120 Accuracy 95.76
+[2023-05-14 18:42:38,877 INFO train_s3dis.py line 336 1708190] Epoch: [13/300][500/1530] Batch 0.718 (0.703) Remain 85:57:52 Loss 0.1492 Accuracy 92.87
+[2023-05-14 18:45:37,409 INFO train_s3dis.py line 336 1708190] Epoch: [13/300][750/1530] Batch 0.740 (0.707) Remain 86:21:49 Loss 0.1665 Accuracy 92.97
+[2023-05-14 18:48:32,038 INFO train_s3dis.py line 336 1708190] Epoch: [13/300][1000/1530] Batch 0.649 (0.705) Remain 86:03:43 Loss 0.1223 Accuracy 93.41
+[2023-05-14 18:51:33,108 INFO train_s3dis.py line 336 1708190] Epoch: [13/300][1250/1530] Batch 0.790 (0.709) Remain 86:29:25 Loss 0.2965 Accuracy 90.78
+[2023-05-14 18:54:25,819 INFO train_s3dis.py line 336 1708190] Epoch: [13/300][1500/1530] Batch 0.766 (0.706) Remain 86:04:46 Loss 0.1699 Accuracy 92.23
+[2023-05-14 18:54:46,981 INFO train_s3dis.py line 364 1708190] Train result at epoch [13/300]: mIoU / mAcc / OA 83.15 / 94.68 / 92.76
+[2023-05-14 18:57:45,469 INFO train_s3dis.py line 336 1708190] Epoch: [14/300][250/1530] Batch 0.735 (0.714) Remain 87:01:57 Loss 0.1078 Accuracy 95.64
+[2023-05-14 19:00:37,032 INFO train_s3dis.py line 336 1708190] Epoch: [14/300][500/1530] Batch 0.584 (0.700) Remain 85:17:47 Loss 0.1036 Accuracy 94.51
+[2023-05-14 19:03:34,069 INFO train_s3dis.py line 336 1708190] Epoch: [14/300][750/1530] Batch 0.860 (0.703) Remain 85:34:29 Loss 0.1341 Accuracy 94.08
+[2023-05-14 19:06:24,563 INFO train_s3dis.py line 336 1708190] Epoch: [14/300][1000/1530] Batch 0.719 (0.698) Remain 84:53:35 Loss 0.2504 Accuracy 92.08
+[2023-05-14 19:09:21,175 INFO train_s3dis.py line 336 1708190] Epoch: [14/300][1250/1530] Batch 0.896 (0.699) Remain 85:03:37 Loss 0.1981 Accuracy 92.17
+[2023-05-14 19:12:14,766 INFO train_s3dis.py line 336 1708190] Epoch: [14/300][1500/1530] Batch 0.639 (0.699) Remain 84:54:38 Loss 0.1442 Accuracy 94.37
+[2023-05-14 19:12:36,097 INFO train_s3dis.py line 364 1708190] Train result at epoch [14/300]: mIoU / mAcc / OA 85.09 / 95.48 / 93.58
+[2023-05-14 19:15:39,887 INFO train_s3dis.py line 336 1708190] Epoch: [15/300][250/1530] Batch 0.819 (0.735) Remain 89:18:21 Loss 0.1824 Accuracy 92.24
+[2023-05-14 19:18:41,392 INFO train_s3dis.py line 336 1708190] Epoch: [15/300][500/1530] Batch 0.538 (0.731) Remain 88:42:02 Loss 0.1530 Accuracy 94.29
+[2023-05-14 19:21:40,663 INFO train_s3dis.py line 336 1708190] Epoch: [15/300][750/1530] Batch 0.928 (0.726) Remain 88:06:14 Loss 0.1747 Accuracy 94.20
+[2023-05-14 19:24:38,593 INFO train_s3dis.py line 336 1708190] Epoch: [15/300][1000/1530] Batch 0.948 (0.722) Remain 87:37:05 Loss 0.1684 Accuracy 94.63
+[2023-05-14 19:27:35,220 INFO train_s3dis.py line 336 1708190] Epoch: [15/300][1250/1530] Batch 0.716 (0.719) Remain 87:10:49 Loss 0.1196 Accuracy 95.42
+[2023-05-14 19:30:33,454 INFO train_s3dis.py line 336 1708190] Epoch: [15/300][1500/1530] Batch 0.513 (0.718) Remain 87:00:07 Loss 0.1362 Accuracy 94.08
+[2023-05-14 19:30:53,011 INFO train_s3dis.py line 364 1708190] Train result at epoch [15/300]: mIoU / mAcc / OA 85.23 / 95.51 / 93.62
+[2023-05-14 19:34:00,052 INFO train_s3dis.py line 336 1708190] Epoch: [16/300][250/1530] Batch 0.578 (0.748) Remain 90:34:04 Loss 0.1491 Accuracy 93.74
+[2023-05-14 19:36:55,801 INFO train_s3dis.py line 336 1708190] Epoch: [16/300][500/1530] Batch 0.540 (0.726) Remain 87:47:03 Loss 0.1304 Accuracy 93.26
+[2023-05-14 19:39:48,148 INFO train_s3dis.py line 336 1708190] Epoch: [16/300][750/1530] Batch 0.509 (0.714) Remain 86:16:31 Loss 0.1244 Accuracy 93.40
+[2023-05-14 19:42:43,188 INFO train_s3dis.py line 336 1708190] Epoch: [16/300][1000/1530] Batch 0.657 (0.710) Remain 85:49:20 Loss 0.1051 Accuracy 94.56
+[2023-05-14 19:45:36,677 INFO train_s3dis.py line 336 1708190] Epoch: [16/300][1250/1530] Batch 0.525 (0.707) Remain 85:22:52 Loss 0.1382 Accuracy 93.99
+[2023-05-14 19:48:32,546 INFO train_s3dis.py line 336 1708190] Epoch: [16/300][1500/1530] Batch 0.845 (0.706) Remain 85:15:45 Loss 0.1054 Accuracy 94.68
+[2023-05-14 19:48:53,054 INFO train_s3dis.py line 364 1708190] Train result at epoch [16/300]: mIoU / mAcc / OA 84.62 / 95.18 / 93.52
+[2023-05-14 19:51:54,986 INFO train_s3dis.py line 336 1708190] Epoch: [17/300][250/1530] Batch 0.763 (0.728) Remain 87:47:00 Loss 0.1175 Accuracy 95.47
+[2023-05-14 19:54:50,976 INFO train_s3dis.py line 336 1708190] Epoch: [17/300][500/1530] Batch 0.659 (0.716) Remain 86:18:05 Loss 0.1314 Accuracy 93.50
+[2023-05-14 19:57:46,815 INFO train_s3dis.py line 336 1708190] Epoch: [17/300][750/1530] Batch 0.785 (0.712) Remain 85:45:02 Loss 0.1197 Accuracy 95.15
+[2023-05-14 20:00:39,878 INFO train_s3dis.py line 336 1708190] Epoch: [17/300][1000/1530] Batch 0.754 (0.707) Remain 85:06:59 Loss 0.2444 Accuracy 91.96
+[2023-05-14 20:03:45,230 INFO train_s3dis.py line 336 1708190] Epoch: [17/300][1250/1530] Batch 0.844 (0.714) Remain 85:53:59 Loss 0.1249 Accuracy 94.51
+[2023-05-14 20:06:39,318 INFO train_s3dis.py line 336 1708190] Epoch: [17/300][1500/1530] Batch 0.564 (0.711) Remain 85:30:06 Loss 0.1194 Accuracy 94.14
+[2023-05-14 20:06:59,884 INFO train_s3dis.py line 364 1708190] Train result at epoch [17/300]: mIoU / mAcc / OA 85.57 / 95.58 / 93.81
+[2023-05-14 20:10:02,424 INFO train_s3dis.py line 336 1708190] Epoch: [18/300][250/1530] Batch 0.777 (0.730) Remain 87:46:03 Loss 0.1372 Accuracy 93.78
+[2023-05-14 20:12:56,880 INFO train_s3dis.py line 336 1708190] Epoch: [18/300][500/1530] Batch 0.812 (0.714) Remain 85:46:31 Loss 0.1578 Accuracy 92.80
+[2023-05-14 20:15:52,937 INFO train_s3dis.py line 336 1708190] Epoch: [18/300][750/1530] Batch 0.644 (0.711) Remain 85:20:06 Loss 0.0794 Accuracy 95.94
+[2023-05-14 20:18:54,137 INFO train_s3dis.py line 336 1708190] Epoch: [18/300][1000/1530] Batch 0.866 (0.714) Remain 85:42:27 Loss 0.1250 Accuracy 94.60
+[2023-05-14 20:21:58,437 INFO train_s3dis.py line 336 1708190] Epoch: [18/300][1250/1530] Batch 0.665 (0.719) Remain 86:12:31 Loss 0.0834 Accuracy 95.08
+[2023-05-14 20:24:51,062 INFO train_s3dis.py line 336 1708190] Epoch: [18/300][1500/1530] Batch 0.510 (0.714) Remain 85:35:33 Loss 0.1262 Accuracy 95.38
+[2023-05-14 20:25:12,479 INFO train_s3dis.py line 364 1708190] Train result at epoch [18/300]: mIoU / mAcc / OA 87.33 / 96.29 / 94.50
+[2023-05-14 20:28:09,667 INFO train_s3dis.py line 336 1708190] Epoch: [19/300][250/1530] Batch 0.561 (0.709) Remain 84:53:34 Loss 0.2160 Accuracy 92.37
+[2023-05-14 20:31:04,753 INFO train_s3dis.py line 336 1708190] Epoch: [19/300][500/1530] Batch 0.755 (0.705) Remain 84:20:28 Loss 0.1340 Accuracy 94.74
+[2023-05-14 20:34:04,726 INFO train_s3dis.py line 336 1708190] Epoch: [19/300][750/1530] Batch 0.715 (0.710) Remain 84:54:15 Loss 0.2460 Accuracy 93.11
+[2023-05-14 20:36:58,350 INFO train_s3dis.py line 336 1708190] Epoch: [19/300][1000/1530] Batch 0.628 (0.706) Remain 84:24:06 Loss 0.0894 Accuracy 96.12
+[2023-05-14 20:39:53,606 INFO train_s3dis.py line 336 1708190] Epoch: [19/300][1250/1530] Batch 0.517 (0.705) Remain 84:14:13 Loss 0.1965 Accuracy 90.64
+[2023-05-14 20:42:49,754 INFO train_s3dis.py line 336 1708190] Epoch: [19/300][1500/1530] Batch 0.594 (0.705) Remain 84:10:55 Loss 0.1127 Accuracy 94.29
+[2023-05-14 20:43:11,051 INFO train_s3dis.py line 364 1708190] Train result at epoch [19/300]: mIoU / mAcc / OA 85.76 / 95.65 / 93.81
+[2023-05-14 20:46:11,877 INFO train_s3dis.py line 336 1708190] Epoch: [20/300][250/1530] Batch 0.637 (0.723) Remain 86:19:40 Loss 0.1175 Accuracy 96.10
+[2023-05-14 20:49:08,315 INFO train_s3dis.py line 336 1708190] Epoch: [20/300][500/1530] Batch 0.696 (0.715) Remain 85:13:55 Loss 0.1043 Accuracy 95.07
+[2023-05-14 20:52:06,887 INFO train_s3dis.py line 336 1708190] Epoch: [20/300][750/1530] Batch 0.809 (0.714) Remain 85:10:23 Loss 0.2307 Accuracy 91.63
+[2023-05-14 20:54:58,764 INFO train_s3dis.py line 336 1708190] Epoch: [20/300][1000/1530] Batch 0.799 (0.708) Remain 84:19:16 Loss 0.0969 Accuracy 95.25
+[2023-05-14 20:57:53,947 INFO train_s3dis.py line 336 1708190] Epoch: [20/300][1250/1530] Batch 0.781 (0.706) Remain 84:06:21 Loss 0.1132 Accuracy 94.69
+[2023-05-14 21:00:52,024 INFO train_s3dis.py line 336 1708190] Epoch: [20/300][1500/1530] Batch 0.544 (0.707) Remain 84:10:32 Loss 0.1429 Accuracy 93.02
+[2023-05-14 21:01:12,662 INFO train_s3dis.py line 364 1708190] Train result at epoch [20/300]: mIoU / mAcc / OA 87.37 / 96.24 / 94.56
+[2023-05-14 21:04:29,675 INFO train_s3dis.py line 336 1708190] Epoch: [21/300][250/1530] Batch 0.745 (0.788) Remain 93:43:18 Loss 0.1387 Accuracy 94.84
+[2023-05-14 21:07:22,674 INFO train_s3dis.py line 336 1708190] Epoch: [21/300][500/1530] Batch 0.516 (0.740) Remain 87:57:32 Loss 0.1925 Accuracy 92.87
+[2023-05-14 21:10:13,571 INFO train_s3dis.py line 336 1708190] Epoch: [21/300][750/1530] Batch 0.770 (0.721) Remain 85:40:23 Loss 0.0821 Accuracy 96.32
+[2023-05-14 21:13:11,355 INFO train_s3dis.py line 336 1708190] Epoch: [21/300][1000/1530] Batch 0.877 (0.719) Remain 85:19:27 Loss 0.0990 Accuracy 94.53
+[2023-05-14 21:16:04,556 INFO train_s3dis.py line 336 1708190] Epoch: [21/300][1250/1530] Batch 0.952 (0.714) Remain 84:39:36 Loss 0.0845 Accuracy 95.97
+[2023-05-14 21:19:01,748 INFO train_s3dis.py line 336 1708190] Epoch: [21/300][1500/1530] Batch 0.612 (0.713) Remain 84:31:00 Loss 0.1034 Accuracy 94.87
+[2023-05-14 21:19:23,732 INFO train_s3dis.py line 364 1708190] Train result at epoch [21/300]: mIoU / mAcc / OA 86.84 / 96.15 / 94.41
+[2023-05-14 21:22:21,361 INFO train_s3dis.py line 336 1708190] Epoch: [22/300][250/1530] Batch 0.677 (0.710) Remain 84:11:52 Loss 0.0662 Accuracy 96.68
+[2023-05-14 21:25:17,561 INFO train_s3dis.py line 336 1708190] Epoch: [22/300][500/1530] Batch 0.793 (0.708) Remain 83:48:40 Loss 0.0885 Accuracy 95.85
+[2023-05-14 21:28:11,765 INFO train_s3dis.py line 336 1708190] Epoch: [22/300][750/1530] Batch 0.663 (0.704) Remain 83:20:04 Loss 0.3053 Accuracy 90.72
+[2023-05-14 21:31:08,761 INFO train_s3dis.py line 336 1708190] Epoch: [22/300][1000/1530] Batch 0.702 (0.705) Remain 83:24:08 Loss 0.0648 Accuracy 96.74
+[2023-05-14 21:34:06,406 INFO train_s3dis.py line 336 1708190] Epoch: [22/300][1250/1530] Batch 0.760 (0.706) Remain 83:29:04 Loss 0.0800 Accuracy 96.64
+[2023-05-14 21:36:57,709 INFO train_s3dis.py line 336 1708190] Epoch: [22/300][1500/1530] Batch 0.555 (0.703) Remain 83:01:25 Loss 0.1299 Accuracy 94.00
+[2023-05-14 21:37:19,002 INFO train_s3dis.py line 364 1708190] Train result at epoch [22/300]: mIoU / mAcc / OA 86.79 / 96.08 / 94.32
+[2023-05-14 21:40:24,429 INFO train_s3dis.py line 336 1708190] Epoch: [23/300][250/1530] Batch 0.721 (0.742) Remain 87:34:45 Loss 0.1091 Accuracy 94.99
+[2023-05-14 21:43:18,568 INFO train_s3dis.py line 336 1708190] Epoch: [23/300][500/1530] Batch 0.618 (0.719) Remain 84:51:51 Loss 0.4359 Accuracy 88.76
+[2023-05-14 21:46:14,245 INFO train_s3dis.py line 336 1708190] Epoch: [23/300][750/1530] Batch 0.557 (0.714) Remain 84:10:08 Loss 0.1470 Accuracy 93.28
+[2023-05-14 21:49:18,573 INFO train_s3dis.py line 336 1708190] Epoch: [23/300][1000/1530] Batch 0.915 (0.720) Remain 84:49:00 Loss 0.1029 Accuracy 95.47
+[2023-05-14 21:52:11,834 INFO train_s3dis.py line 336 1708190] Epoch: [23/300][1250/1530] Batch 0.817 (0.714) Remain 84:08:30 Loss 0.0715 Accuracy 95.99
+[2023-05-14 21:55:08,480 INFO train_s3dis.py line 336 1708190] Epoch: [23/300][1500/1530] Batch 0.637 (0.713) Remain 83:56:29 Loss 0.2026 Accuracy 92.80
+[2023-05-14 21:55:29,268 INFO train_s3dis.py line 364 1708190] Train result at epoch [23/300]: mIoU / mAcc / OA 86.65 / 95.96 / 94.37
+[2023-05-14 21:58:36,600 INFO train_s3dis.py line 336 1708190] Epoch: [24/300][250/1530] Batch 0.648 (0.749) Remain 88:09:39 Loss 0.1065 Accuracy 95.07
+[2023-05-14 22:01:31,842 INFO train_s3dis.py line 336 1708190] Epoch: [24/300][500/1530] Batch 0.688 (0.725) Remain 85:15:59 Loss 0.0816 Accuracy 94.64
+[2023-05-14 22:04:29,129 INFO train_s3dis.py line 336 1708190] Epoch: [24/300][750/1530] Batch 0.820 (0.720) Remain 84:35:22 Loss 0.1190 Accuracy 96.14
+[2023-05-14 22:07:21,451 INFO train_s3dis.py line 336 1708190] Epoch: [24/300][1000/1530] Batch 0.525 (0.712) Remain 83:38:36 Loss 0.1567 Accuracy 93.77
+[2023-05-14 22:10:12,453 INFO train_s3dis.py line 336 1708190] Epoch: [24/300][1250/1530] Batch 0.773 (0.707) Remain 82:55:57 Loss 0.0839 Accuracy 96.12
+[2023-05-14 22:13:05,913 INFO train_s3dis.py line 336 1708190] Epoch: [24/300][1500/1530] Batch 0.550 (0.704) Remain 82:38:06 Loss 0.0976 Accuracy 94.92
+[2023-05-14 22:13:27,412 INFO train_s3dis.py line 364 1708190] Train result at epoch [24/300]: mIoU / mAcc / OA 85.98 / 95.83 / 94.07
+[2023-05-14 22:16:28,145 INFO train_s3dis.py line 336 1708190] Epoch: [25/300][250/1530] Batch 0.471 (0.723) Remain 84:44:51 Loss 0.0822 Accuracy 96.43
+[2023-05-14 22:19:22,825 INFO train_s3dis.py line 336 1708190] Epoch: [25/300][500/1530] Batch 0.615 (0.711) Remain 83:16:48 Loss 0.0909 Accuracy 94.81
+[2023-05-14 22:22:22,561 INFO train_s3dis.py line 336 1708190] Epoch: [25/300][750/1530] Batch 0.765 (0.714) Remain 83:32:52 Loss 0.1423 Accuracy 94.64
+[2023-05-14 22:25:17,233 INFO train_s3dis.py line 336 1708190] Epoch: [25/300][1000/1530] Batch 0.483 (0.710) Remain 83:03:51 Loss 0.1590 Accuracy 92.75
+[2023-05-14 22:28:09,438 INFO train_s3dis.py line 336 1708190] Epoch: [25/300][1250/1530] Batch 0.761 (0.706) Remain 82:31:25 Loss 0.1012 Accuracy 95.45
+[2023-05-14 22:31:01,637 INFO train_s3dis.py line 336 1708190] Epoch: [25/300][1500/1530] Batch 0.671 (0.703) Remain 82:08:49 Loss 0.1583 Accuracy 92.87
+[2023-05-14 22:31:22,423 INFO train_s3dis.py line 364 1708190] Train result at epoch [25/300]: mIoU / mAcc / OA 87.05 / 96.17 / 94.55
+[2023-05-14 22:34:22,029 INFO train_s3dis.py line 336 1708190] Epoch: [26/300][250/1530] Batch 0.611 (0.718) Remain 83:54:48 Loss 0.1043 Accuracy 95.12
+[2023-05-14 22:37:17,763 INFO train_s3dis.py line 336 1708190] Epoch: [26/300][500/1530] Batch 0.701 (0.711) Remain 82:57:38 Loss 0.0725 Accuracy 96.78
+[2023-05-14 22:40:17,514 INFO train_s3dis.py line 336 1708190] Epoch: [26/300][750/1530] Batch 0.482 (0.713) Remain 83:14:08 Loss 0.0897 Accuracy 96.10
+[2023-05-14 22:43:07,293 INFO train_s3dis.py line 336 1708190] Epoch: [26/300][1000/1530] Batch 0.376 (0.705) Remain 82:11:06 Loss 0.2846 Accuracy 89.38
+[2023-05-14 22:45:59,788 INFO train_s3dis.py line 336 1708190] Epoch: [26/300][1250/1530] Batch 0.723 (0.702) Remain 81:47:21 Loss 0.1286 Accuracy 93.95
+[2023-05-14 22:48:50,157 INFO train_s3dis.py line 336 1708190] Epoch: [26/300][1500/1530] Batch 0.605 (0.698) Remain 81:20:39 Loss 0.1083 Accuracy 95.30
+[2023-05-14 22:49:12,209 INFO train_s3dis.py line 364 1708190] Train result at epoch [26/300]: mIoU / mAcc / OA 87.86 / 96.37 / 94.84
+[2023-05-14 22:52:16,677 INFO train_s3dis.py line 336 1708190] Epoch: [27/300][250/1530] Batch 0.528 (0.738) Remain 85:52:19 Loss 0.0872 Accuracy 96.14
+[2023-05-14 22:55:13,499 INFO train_s3dis.py line 336 1708190] Epoch: [27/300][500/1530] Batch 0.625 (0.723) Remain 84:02:35 Loss 0.0899 Accuracy 95.84
+[2023-05-14 22:58:10,417 INFO train_s3dis.py line 336 1708190] Epoch: [27/300][750/1530] Batch 0.718 (0.718) Remain 83:24:55 Loss 0.1254 Accuracy 94.58
+[2023-05-14 23:01:05,233 INFO train_s3dis.py line 336 1708190] Epoch: [27/300][1000/1530] Batch 0.802 (0.713) Remain 82:49:58 Loss 0.1364 Accuracy 93.10
+[2023-05-14 23:04:01,631 INFO train_s3dis.py line 336 1708190] Epoch: [27/300][1250/1530] Batch 0.505 (0.712) Remain 82:36:39 Loss 0.0954 Accuracy 95.60
+[2023-05-14 23:06:57,976 INFO train_s3dis.py line 336 1708190] Epoch: [27/300][1500/1530] Batch 0.742 (0.711) Remain 82:26:32 Loss 0.1177 Accuracy 94.67
+[2023-05-14 23:07:18,705 INFO train_s3dis.py line 364 1708190] Train result at epoch [27/300]: mIoU / mAcc / OA 88.08 / 96.46 / 94.85
+[2023-05-14 23:10:14,711 INFO train_s3dis.py line 336 1708190] Epoch: [28/300][250/1530] Batch 0.566 (0.704) Remain 81:37:58 Loss 0.0861 Accuracy 95.60
+[2023-05-14 23:13:05,578 INFO train_s3dis.py line 336 1708190] Epoch: [28/300][500/1530] Batch 0.511 (0.694) Remain 80:23:38 Loss 0.1140 Accuracy 94.81
+[2023-05-14 23:16:02,049 INFO train_s3dis.py line 336 1708190] Epoch: [28/300][750/1530] Batch 0.767 (0.698) Remain 80:48:53 Loss 0.1163 Accuracy 95.25
+[2023-05-14 23:18:58,048 INFO train_s3dis.py line 336 1708190] Epoch: [28/300][1000/1530] Batch 0.832 (0.699) Remain 80:56:45 Loss 0.1047 Accuracy 96.42
+[2023-05-14 23:21:55,635 INFO train_s3dis.py line 336 1708190] Epoch: [28/300][1250/1530] Batch 0.805 (0.702) Remain 81:09:08 Loss 0.1007 Accuracy 95.98
+[2023-05-14 23:24:47,366 INFO train_s3dis.py line 336 1708190] Epoch: [28/300][1500/1530] Batch 0.635 (0.699) Remain 80:49:19 Loss 0.2270 Accuracy 89.58
+[2023-05-14 23:25:09,198 INFO train_s3dis.py line 364 1708190] Train result at epoch [28/300]: mIoU / mAcc / OA 88.01 / 96.47 / 94.86
+[2023-05-14 23:28:02,971 INFO train_s3dis.py line 336 1708190] Epoch: [29/300][250/1530] Batch 0.777 (0.695) Remain 80:18:05 Loss 0.1770 Accuracy 94.76
+[2023-05-14 23:30:58,460 INFO train_s3dis.py line 336 1708190] Epoch: [29/300][500/1530] Batch 0.686 (0.699) Remain 80:39:02 Loss 0.1113 Accuracy 96.20
+[2023-05-14 23:33:55,062 INFO train_s3dis.py line 336 1708190] Epoch: [29/300][750/1530] Batch 0.890 (0.701) Remain 80:54:21 Loss 0.0684 Accuracy 97.08
+[2023-05-14 23:36:56,376 INFO train_s3dis.py line 336 1708190] Epoch: [29/300][1000/1530] Batch 0.570 (0.707) Remain 81:33:08 Loss 0.0868 Accuracy 95.73
+[2023-05-14 23:39:56,320 INFO train_s3dis.py line 336 1708190] Epoch: [29/300][1250/1530] Batch 0.581 (0.710) Remain 81:47:37 Loss 0.0777 Accuracy 95.90
+[2023-05-14 23:42:48,758 INFO train_s3dis.py line 336 1708190] Epoch: [29/300][1500/1530] Batch 0.725 (0.706) Remain 81:21:42 Loss 0.0719 Accuracy 96.64
+[2023-05-14 23:43:10,270 INFO train_s3dis.py line 364 1708190] Train result at epoch [29/300]: mIoU / mAcc / OA 89.07 / 96.77 / 95.31
+[2023-05-14 23:46:11,889 INFO train_s3dis.py line 336 1708190] Epoch: [30/300][250/1530] Batch 0.812 (0.726) Remain 83:37:11 Loss 0.1670 Accuracy 94.24
+[2023-05-14 23:49:14,699 INFO train_s3dis.py line 336 1708190] Epoch: [30/300][500/1530] Batch 0.671 (0.729) Remain 83:50:38 Loss 0.0779 Accuracy 96.17
+[2023-05-14 23:52:07,242 INFO train_s3dis.py line 336 1708190] Epoch: [30/300][750/1530] Batch 0.557 (0.716) Remain 82:18:39 Loss 0.0701 Accuracy 96.16
+[2023-05-14 23:55:03,913 INFO train_s3dis.py line 336 1708190] Epoch: [30/300][1000/1530] Batch 0.677 (0.714) Remain 81:59:41 Loss 0.0902 Accuracy 96.36
+[2023-05-14 23:57:58,663 INFO train_s3dis.py line 336 1708190] Epoch: [30/300][1250/1530] Batch 0.721 (0.711) Remain 81:36:33 Loss 0.0644 Accuracy 96.26
+[2023-05-15 00:00:49,983 INFO train_s3dis.py line 336 1708190] Epoch: [30/300][1500/1530] Batch 0.798 (0.706) Remain 81:04:24 Loss 0.1499 Accuracy 93.21
+[2023-05-15 00:01:11,181 INFO train_s3dis.py line 364 1708190] Train result at epoch [30/300]: mIoU / mAcc / OA 87.90 / 96.35 / 94.88
+[2023-05-15 00:04:08,699 INFO train_s3dis.py line 336 1708190] Epoch: [31/300][250/1530] Batch 0.553 (0.710) Remain 81:25:48 Loss 0.0879 Accuracy 94.72
+[2023-05-15 00:07:03,394 INFO train_s3dis.py line 336 1708190] Epoch: [31/300][500/1530] Batch 0.677 (0.704) Remain 80:44:02 Loss 0.2426 Accuracy 92.27
+[2023-05-15 00:10:04,292 INFO train_s3dis.py line 336 1708190] Epoch: [31/300][750/1530] Batch 0.609 (0.711) Remain 81:25:01 Loss 0.0773 Accuracy 96.54
+[2023-05-15 00:12:58,926 INFO train_s3dis.py line 336 1708190] Epoch: [31/300][1000/1530] Batch 0.747 (0.708) Remain 81:00:59 Loss 0.1077 Accuracy 94.68
+[2023-05-15 00:15:50,293 INFO train_s3dis.py line 336 1708190] Epoch: [31/300][1250/1530] Batch 0.946 (0.703) Remain 80:27:28 Loss 0.1021 Accuracy 94.44
+[2023-05-15 00:18:46,889 INFO train_s3dis.py line 336 1708190] Epoch: [31/300][1500/1530] Batch 0.594 (0.704) Remain 80:28:04 Loss 0.0690 Accuracy 96.40
+[2023-05-15 00:19:08,179 INFO train_s3dis.py line 364 1708190] Train result at epoch [31/300]: mIoU / mAcc / OA 88.09 / 96.50 / 94.94
+[2023-05-15 00:22:07,689 INFO train_s3dis.py line 336 1708190] Epoch: [32/300][250/1530] Batch 0.786 (0.718) Remain 82:02:19 Loss 0.1442 Accuracy 95.20
+[2023-05-15 00:25:03,570 INFO train_s3dis.py line 336 1708190] Epoch: [32/300][500/1530] Batch 0.890 (0.711) Remain 81:09:38 Loss 0.0919 Accuracy 96.40
+[2023-05-15 00:27:55,054 INFO train_s3dis.py line 336 1708190] Epoch: [32/300][750/1530] Batch 0.701 (0.702) Remain 80:09:59 Loss 0.0993 Accuracy 95.71
+[2023-05-15 00:30:55,296 INFO train_s3dis.py line 336 1708190] Epoch: [32/300][1000/1530] Batch 0.751 (0.707) Remain 80:38:39 Loss 0.0889 Accuracy 96.44
+[2023-05-15 00:33:47,367 INFO train_s3dis.py line 336 1708190] Epoch: [32/300][1250/1530] Batch 0.561 (0.703) Remain 80:09:57 Loss 0.0724 Accuracy 96.15
+[2023-05-15 00:36:45,485 INFO train_s3dis.py line 336 1708190] Epoch: [32/300][1500/1530] Batch 0.562 (0.705) Remain 80:17:25 Loss 0.0801 Accuracy 96.13
+[2023-05-15 00:37:05,699 INFO train_s3dis.py line 364 1708190] Train result at epoch [32/300]: mIoU / mAcc / OA 88.00 / 96.37 / 94.95
+[2023-05-15 00:40:06,735 INFO train_s3dis.py line 336 1708190] Epoch: [33/300][250/1530] Batch 0.449 (0.724) Remain 82:25:39 Loss 0.0920 Accuracy 96.05
+[2023-05-15 00:42:59,955 INFO train_s3dis.py line 336 1708190] Epoch: [33/300][500/1530] Batch 0.650 (0.709) Remain 80:36:00 Loss 0.3857 Accuracy 87.09
+[2023-05-15 00:46:00,966 INFO train_s3dis.py line 336 1708190] Epoch: [33/300][750/1530] Batch 0.583 (0.714) Remain 81:08:23 Loss 0.0729 Accuracy 96.72
+[2023-05-15 00:48:55,144 INFO train_s3dis.py line 336 1708190] Epoch: [33/300][1000/1530] Batch 0.591 (0.709) Remain 80:36:29 Loss 0.1309 Accuracy 94.13
+[2023-05-15 00:51:51,025 INFO train_s3dis.py line 336 1708190] Epoch: [33/300][1250/1530] Batch 0.523 (0.708) Remain 80:25:27 Loss 0.0892 Accuracy 95.64
+[2023-05-15 00:54:45,974 INFO train_s3dis.py line 336 1708190] Epoch: [33/300][1500/1530] Batch 0.677 (0.707) Remain 80:12:54 Loss 0.0601 Accuracy 96.71
+[2023-05-15 00:55:07,332 INFO train_s3dis.py line 364 1708190] Train result at epoch [33/300]: mIoU / mAcc / OA 87.78 / 96.36 / 94.81
+[2023-05-15 00:58:15,659 INFO train_s3dis.py line 336 1708190] Epoch: [34/300][250/1530] Batch 0.821 (0.753) Remain 85:25:41 Loss 0.1225 Accuracy 95.84
+[2023-05-15 01:01:10,486 INFO train_s3dis.py line 336 1708190] Epoch: [34/300][500/1530] Batch 0.624 (0.726) Remain 82:18:58 Loss 0.0893 Accuracy 95.57
+[2023-05-15 01:04:15,154 INFO train_s3dis.py line 336 1708190] Epoch: [34/300][750/1530] Batch 0.643 (0.730) Remain 82:43:57 Loss 0.0946 Accuracy 95.89
+[2023-05-15 01:07:15,701 INFO train_s3dis.py line 336 1708190] Epoch: [34/300][1000/1530] Batch 0.603 (0.728) Remain 82:26:56 Loss 0.2434 Accuracy 93.27
+[2023-05-15 01:10:31,120 INFO train_s3dis.py line 336 1708190] Epoch: [34/300][1250/1530] Batch 0.699 (0.739) Remain 83:36:16 Loss 0.0680 Accuracy 96.39
+[2023-05-15 01:13:26,035 INFO train_s3dis.py line 336 1708190] Epoch: [34/300][1500/1530] Batch 0.771 (0.732) Remain 82:48:40 Loss 0.1213 Accuracy 95.37
+[2023-05-15 01:13:48,255 INFO train_s3dis.py line 364 1708190] Train result at epoch [34/300]: mIoU / mAcc / OA 88.04 / 96.49 / 94.94
+[2023-05-15 01:16:51,784 INFO train_s3dis.py line 336 1708190] Epoch: [35/300][250/1530] Batch 0.649 (0.734) Remain 82:56:21 Loss 0.0742 Accuracy 96.73
+[2023-05-15 01:19:54,894 INFO train_s3dis.py line 336 1708190] Epoch: [35/300][500/1530] Batch 0.752 (0.733) Remain 82:47:40 Loss 0.1102 Accuracy 96.04
+[2023-05-15 01:22:59,645 INFO train_s3dis.py line 336 1708190] Epoch: [35/300][750/1530] Batch 0.744 (0.735) Remain 82:57:32 Loss 0.1623 Accuracy 92.89
+[2023-05-15 01:26:00,785 INFO train_s3dis.py line 336 1708190] Epoch: [35/300][1000/1530] Batch 0.830 (0.733) Remain 82:36:30 Loss 0.1450 Accuracy 93.72
+[2023-05-15 01:28:59,763 INFO train_s3dis.py line 336 1708190] Epoch: [35/300][1250/1530] Batch 0.768 (0.729) Remain 82:10:59 Loss 0.0801 Accuracy 96.92
+[2023-05-15 01:31:57,848 INFO train_s3dis.py line 336 1708190] Epoch: [35/300][1500/1530] Batch 0.721 (0.726) Remain 81:48:57 Loss 0.0886 Accuracy 95.66
+[2023-05-15 01:32:18,109 INFO train_s3dis.py line 364 1708190] Train result at epoch [35/300]: mIoU / mAcc / OA 89.00 / 96.78 / 95.25
+[2023-05-15 01:35:21,514 INFO train_s3dis.py line 336 1708190] Epoch: [36/300][250/1530] Batch 0.488 (0.734) Remain 82:34:18 Loss 0.1263 Accuracy 94.73
+[2023-05-15 01:38:24,696 INFO train_s3dis.py line 336 1708190] Epoch: [36/300][500/1530] Batch 0.587 (0.733) Remain 82:28:15 Loss 0.0899 Accuracy 95.52
+[2023-05-15 01:41:28,958 INFO train_s3dis.py line 336 1708190] Epoch: [36/300][750/1530] Batch 0.715 (0.734) Remain 82:33:55 Loss 0.1539 Accuracy 94.12
+[2023-05-15 01:44:23,895 INFO train_s3dis.py line 336 1708190] Epoch: [36/300][1000/1530] Batch 0.776 (0.726) Remain 81:32:22 Loss 0.0659 Accuracy 96.46
+[2023-05-15 01:47:21,070 INFO train_s3dis.py line 336 1708190] Epoch: [36/300][1250/1530] Batch 0.732 (0.722) Remain 81:06:19 Loss 0.0951 Accuracy 96.29
+[2023-05-15 01:50:32,924 INFO train_s3dis.py line 336 1708190] Epoch: [36/300][1500/1530] Batch 0.681 (0.730) Remain 81:53:52 Loss 0.0999 Accuracy 94.49
+[2023-05-15 01:50:53,210 INFO train_s3dis.py line 364 1708190] Train result at epoch [36/300]: mIoU / mAcc / OA 88.69 / 96.69 / 95.18
+[2023-05-15 01:53:58,222 INFO train_s3dis.py line 336 1708190] Epoch: [37/300][250/1530] Batch 0.830 (0.740) Remain 82:58:49 Loss 0.0815 Accuracy 96.25
+[2023-05-15 01:56:56,278 INFO train_s3dis.py line 336 1708190] Epoch: [37/300][500/1530] Batch 0.510 (0.726) Remain 81:22:14 Loss 0.0967 Accuracy 95.81
+[2023-05-15 02:00:02,470 INFO train_s3dis.py line 336 1708190] Epoch: [37/300][750/1530] Batch 0.746 (0.732) Remain 82:00:57 Loss 0.0915 Accuracy 95.58
+[2023-05-15 02:03:11,555 INFO train_s3dis.py line 336 1708190] Epoch: [37/300][1000/1530] Batch 0.619 (0.738) Remain 82:38:12 Loss 0.1116 Accuracy 95.01
+[2023-05-15 02:06:09,079 INFO train_s3dis.py line 336 1708190] Epoch: [37/300][1250/1530] Batch 0.893 (0.733) Remain 81:57:12 Loss 0.0544 Accuracy 97.08
+[2023-05-15 02:09:12,726 INFO train_s3dis.py line 336 1708190] Epoch: [37/300][1500/1530] Batch 0.692 (0.733) Remain 81:56:16 Loss 0.1077 Accuracy 95.18
+[2023-05-15 02:09:38,552 INFO train_s3dis.py line 364 1708190] Train result at epoch [37/300]: mIoU / mAcc / OA 89.09 / 96.84 / 95.30
+[2023-05-15 02:12:45,478 INFO train_s3dis.py line 336 1708190] Epoch: [38/300][250/1530] Batch 0.607 (0.748) Remain 83:31:14 Loss 0.0826 Accuracy 96.69
+[2023-05-15 02:15:45,851 INFO train_s3dis.py line 336 1708190] Epoch: [38/300][500/1530] Batch 0.606 (0.735) Remain 82:00:23 Loss 0.0732 Accuracy 96.72
+[2023-05-15 02:18:45,050 INFO train_s3dis.py line 336 1708190] Epoch: [38/300][750/1530] Batch 0.713 (0.729) Remain 81:17:37 Loss 0.1693 Accuracy 92.46
+[2023-05-15 02:21:50,739 INFO train_s3dis.py line 336 1708190] Epoch: [38/300][1000/1530] Batch 0.686 (0.732) Remain 81:38:10 Loss 0.1166 Accuracy 95.36
+[2023-05-15 02:24:53,657 INFO train_s3dis.py line 336 1708190] Epoch: [38/300][1250/1530] Batch 0.513 (0.732) Remain 81:34:25 Loss 0.1462 Accuracy 92.93
+[2023-05-15 02:27:57,029 INFO train_s3dis.py line 336 1708190] Epoch: [38/300][1500/1530] Batch 0.721 (0.732) Remain 81:32:57 Loss 0.0691 Accuracy 96.76
+[2023-05-15 02:28:20,822 INFO train_s3dis.py line 364 1708190] Train result at epoch [38/300]: mIoU / mAcc / OA 88.16 / 96.46 / 95.05
+[2023-05-15 02:31:32,793 INFO train_s3dis.py line 336 1708190] Epoch: [39/300][250/1530] Batch 0.685 (0.768) Remain 85:26:54 Loss 0.1441 Accuracy 94.13
+[2023-05-15 02:34:31,214 INFO train_s3dis.py line 336 1708190] Epoch: [39/300][500/1530] Batch 0.701 (0.741) Remain 82:22:56 Loss 0.1221 Accuracy 95.37
+[2023-05-15 02:37:32,760 INFO train_s3dis.py line 336 1708190] Epoch: [39/300][750/1530] Batch 0.646 (0.736) Remain 81:47:25 Loss 0.0981 Accuracy 94.65
+[2023-05-15 02:40:34,832 INFO train_s3dis.py line 336 1708190] Epoch: [39/300][1000/1530] Batch 0.690 (0.734) Remain 81:31:38 Loss 0.0738 Accuracy 96.99
+[2023-05-15 02:43:33,302 INFO train_s3dis.py line 336 1708190] Epoch: [39/300][1250/1530] Batch 0.619 (0.730) Remain 81:01:46 Loss 0.0894 Accuracy 96.16
+[2023-05-15 02:46:35,143 INFO train_s3dis.py line 336 1708190] Epoch: [39/300][1500/1530] Batch 0.789 (0.730) Remain 80:55:50 Loss 0.0529 Accuracy 97.38
+[2023-05-15 02:46:56,390 INFO train_s3dis.py line 364 1708190] Train result at epoch [39/300]: mIoU / mAcc / OA 89.13 / 96.80 / 95.37
+[2023-05-15 02:50:03,122 INFO train_s3dis.py line 336 1708190] Epoch: [40/300][250/1530] Batch 0.629 (0.747) Remain 82:47:59 Loss 0.0924 Accuracy 94.78
+[2023-05-15 02:52:59,350 INFO train_s3dis.py line 336 1708190] Epoch: [40/300][500/1530] Batch 0.707 (0.726) Remain 80:25:16 Loss 0.0845 Accuracy 96.57
+[2023-05-15 02:55:57,664 INFO train_s3dis.py line 336 1708190] Epoch: [40/300][750/1530] Batch 0.773 (0.722) Remain 79:54:12 Loss 0.1071 Accuracy 94.40
+[2023-05-15 02:59:04,355 INFO train_s3dis.py line 336 1708190] Epoch: [40/300][1000/1530] Batch 0.732 (0.728) Remain 80:32:48 Loss 0.0702 Accuracy 95.94
+[2023-05-15 03:02:08,757 INFO train_s3dis.py line 336 1708190] Epoch: [40/300][1250/1530] Batch 0.649 (0.730) Remain 80:42:34 Loss 0.0958 Accuracy 94.61
+[2023-05-15 03:05:13,705 INFO train_s3dis.py line 336 1708190] Epoch: [40/300][1500/1530] Batch 0.754 (0.732) Remain 80:50:28 Loss 0.1173 Accuracy 95.12
+[2023-05-15 03:05:35,031 INFO train_s3dis.py line 364 1708190] Train result at epoch [40/300]: mIoU / mAcc / OA 88.89 / 96.73 / 95.23
+[2023-05-15 03:08:37,758 INFO train_s3dis.py line 336 1708190] Epoch: [41/300][250/1530] Batch 0.656 (0.731) Remain 80:42:46 Loss 0.0652 Accuracy 96.87
+[2023-05-15 03:11:37,696 INFO train_s3dis.py line 336 1708190] Epoch: [41/300][500/1530] Batch 0.715 (0.725) Remain 80:02:49 Loss 0.0782 Accuracy 95.34
+[2023-05-15 03:14:46,447 INFO train_s3dis.py line 336 1708190] Epoch: [41/300][750/1530] Batch 0.565 (0.735) Remain 81:05:16 Loss 0.1440 Accuracy 93.51
+[2023-05-15 03:17:50,093 INFO train_s3dis.py line 336 1708190] Epoch: [41/300][1000/1530] Batch 0.683 (0.735) Remain 81:01:10 Loss 0.0755 Accuracy 96.07
+[2023-05-15 03:21:00,674 INFO train_s3dis.py line 336 1708190] Epoch: [41/300][1250/1530] Batch 0.506 (0.741) Remain 81:34:09 Loss 0.0591 Accuracy 96.80
+[2023-05-15 03:24:05,902 INFO train_s3dis.py line 336 1708190] Epoch: [41/300][1500/1530] Batch 0.647 (0.741) Remain 81:31:30 Loss 0.0803 Accuracy 96.28
+[2023-05-15 03:24:26,755 INFO train_s3dis.py line 364 1708190] Train result at epoch [41/300]: mIoU / mAcc / OA 88.30 / 96.52 / 95.07
+[2023-05-15 03:27:37,216 INFO train_s3dis.py line 336 1708190] Epoch: [42/300][250/1530] Batch 0.535 (0.762) Remain 83:48:20 Loss 0.0617 Accuracy 97.14
+[2023-05-15 03:30:33,327 INFO train_s3dis.py line 336 1708190] Epoch: [42/300][500/1530] Batch 0.658 (0.733) Remain 80:35:53 Loss 0.0826 Accuracy 96.53
+[2023-05-15 03:33:33,534 INFO train_s3dis.py line 336 1708190] Epoch: [42/300][750/1530] Batch 0.607 (0.729) Remain 80:05:47 Loss 0.0867 Accuracy 96.15
+[2023-05-15 03:36:34,893 INFO train_s3dis.py line 336 1708190] Epoch: [42/300][1000/1530] Batch 0.463 (0.728) Remain 79:56:49 Loss 0.1867 Accuracy 91.84
+[2023-05-15 03:39:37,873 INFO train_s3dis.py line 336 1708190] Epoch: [42/300][1250/1530] Batch 0.549 (0.729) Remain 79:58:45 Loss 0.0939 Accuracy 95.36
+[2023-05-15 03:42:39,049 INFO train_s3dis.py line 336 1708190] Epoch: [42/300][1500/1530] Batch 0.903 (0.728) Remain 79:51:08 Loss 0.0878 Accuracy 95.50
+[2023-05-15 03:43:01,535 INFO train_s3dis.py line 364 1708190] Train result at epoch [42/300]: mIoU / mAcc / OA 88.60 / 96.65 / 95.20
+[2023-05-15 03:46:10,852 INFO train_s3dis.py line 336 1708190] Epoch: [43/300][250/1530] Batch 0.566 (0.757) Remain 82:58:48 Loss 0.1125 Accuracy 95.60
+[2023-05-15 03:49:16,059 INFO train_s3dis.py line 336 1708190] Epoch: [43/300][500/1530] Batch 0.499 (0.749) Remain 82:01:41 Loss 0.1647 Accuracy 91.31
+[2023-05-15 03:52:14,574 INFO train_s3dis.py line 336 1708190] Epoch: [43/300][750/1530] Batch 0.555 (0.737) Remain 80:42:00 Loss 0.0788 Accuracy 96.33
+[2023-05-15 03:55:22,866 INFO train_s3dis.py line 336 1708190] Epoch: [43/300][1000/1530] Batch 0.819 (0.741) Remain 81:04:49 Loss 0.0609 Accuracy 97.21
+[2023-05-15 03:58:21,633 INFO train_s3dis.py line 336 1708190] Epoch: [43/300][1250/1530] Batch 0.619 (0.736) Remain 80:27:17 Loss 0.0768 Accuracy 96.31
+[2023-05-15 04:01:27,301 INFO train_s3dis.py line 336 1708190] Epoch: [43/300][1500/1530] Batch 0.664 (0.737) Remain 80:31:26 Loss 0.1166 Accuracy 94.63
+[2023-05-15 04:01:48,268 INFO train_s3dis.py line 364 1708190] Train result at epoch [43/300]: mIoU / mAcc / OA 89.61 / 97.03 / 95.56
+[2023-05-15 04:04:51,310 INFO train_s3dis.py line 336 1708190] Epoch: [44/300][250/1530] Batch 0.612 (0.732) Remain 79:55:07 Loss 0.1870 Accuracy 94.15
+[2023-05-15 04:07:51,240 INFO train_s3dis.py line 336 1708190] Epoch: [44/300][500/1530] Batch 0.720 (0.726) Remain 79:11:22 Loss 0.1182 Accuracy 95.20
+[2023-05-15 04:10:50,314 INFO train_s3dis.py line 336 1708190] Epoch: [44/300][750/1530] Batch 0.524 (0.723) Remain 78:47:19 Loss 0.0654 Accuracy 96.72
+[2023-05-15 04:13:53,986 INFO train_s3dis.py line 336 1708190] Epoch: [44/300][1000/1530] Batch 0.853 (0.726) Remain 79:03:52 Loss 0.0938 Accuracy 96.33
+[2023-05-15 04:16:54,819 INFO train_s3dis.py line 336 1708190] Epoch: [44/300][1250/1530] Batch 0.534 (0.725) Remain 78:57:43 Loss 0.1040 Accuracy 95.87
+[2023-05-15 04:20:06,961 INFO train_s3dis.py line 336 1708190] Epoch: [44/300][1500/1530] Batch 0.718 (0.732) Remain 79:41:51 Loss 0.1027 Accuracy 95.43
+[2023-05-15 04:20:27,711 INFO train_s3dis.py line 364 1708190] Train result at epoch [44/300]: mIoU / mAcc / OA 88.26 / 96.51 / 95.05
+[2023-05-15 04:23:26,939 INFO train_s3dis.py line 336 1708190] Epoch: [45/300][250/1530] Batch 0.677 (0.717) Remain 77:56:55 Loss 0.0986 Accuracy 95.32
+[2023-05-15 04:26:22,669 INFO train_s3dis.py line 336 1708190] Epoch: [45/300][500/1530] Batch 0.835 (0.710) Remain 77:08:21 Loss 0.1021 Accuracy 94.47
+[2023-05-15 04:29:25,204 INFO train_s3dis.py line 336 1708190] Epoch: [45/300][750/1530] Batch 0.601 (0.717) Remain 77:49:20 Loss 0.0970 Accuracy 96.00
+[2023-05-15 04:32:31,677 INFO train_s3dis.py line 336 1708190] Epoch: [45/300][1000/1530] Batch 0.670 (0.724) Remain 78:33:57 Loss 0.1231 Accuracy 94.18
+[2023-05-15 04:35:28,540 INFO train_s3dis.py line 336 1708190] Epoch: [45/300][1250/1530] Batch 0.687 (0.721) Remain 78:09:26 Loss 0.1151 Accuracy 94.14
+[2023-05-15 04:38:31,869 INFO train_s3dis.py line 336 1708190] Epoch: [45/300][1500/1530] Batch 0.857 (0.723) Remain 78:20:09 Loss 0.0900 Accuracy 96.19
+[2023-05-15 04:38:54,791 INFO train_s3dis.py line 364 1708190] Train result at epoch [45/300]: mIoU / mAcc / OA 88.86 / 96.73 / 95.23
+[2023-05-15 04:41:58,268 INFO train_s3dis.py line 336 1708190] Epoch: [46/300][250/1530] Batch 0.813 (0.734) Remain 79:29:06 Loss 0.0853 Accuracy 95.74
+[2023-05-15 04:45:05,161 INFO train_s3dis.py line 336 1708190] Epoch: [46/300][500/1530] Batch 0.773 (0.741) Remain 80:10:26 Loss 0.1736 Accuracy 90.31
+[2023-05-15 04:48:10,857 INFO train_s3dis.py line 336 1708190] Epoch: [46/300][750/1530] Batch 0.646 (0.741) Remain 80:11:47 Loss 0.1137 Accuracy 95.82
+[2023-05-15 04:51:09,949 INFO train_s3dis.py line 336 1708190] Epoch: [46/300][1000/1530] Batch 0.913 (0.735) Remain 79:28:04 Loss 0.0927 Accuracy 96.52
+[2023-05-15 04:54:15,458 INFO train_s3dis.py line 336 1708190] Epoch: [46/300][1250/1530] Batch 0.522 (0.737) Remain 79:33:56 Loss 0.0588 Accuracy 97.34
+[2023-05-15 04:57:16,868 INFO train_s3dis.py line 336 1708190] Epoch: [46/300][1500/1530] Batch 0.671 (0.735) Remain 79:19:06 Loss 0.0708 Accuracy 96.67
+[2023-05-15 04:57:38,337 INFO train_s3dis.py line 364 1708190] Train result at epoch [46/300]: mIoU / mAcc / OA 89.40 / 96.86 / 95.45
+[2023-05-15 05:00:44,061 INFO train_s3dis.py line 336 1708190] Epoch: [47/300][250/1530] Batch 0.646 (0.743) Remain 80:08:34 Loss 0.0803 Accuracy 96.54
+[2023-05-15 05:03:51,985 INFO train_s3dis.py line 336 1708190] Epoch: [47/300][500/1530] Batch 0.505 (0.747) Remain 80:33:57 Loss 0.1625 Accuracy 93.88
+[2023-05-15 05:06:54,993 INFO train_s3dis.py line 336 1708190] Epoch: [47/300][750/1530] Batch 0.821 (0.742) Remain 79:57:57 Loss 0.0757 Accuracy 96.63
+[2023-05-15 05:09:53,095 INFO train_s3dis.py line 336 1708190] Epoch: [47/300][1000/1530] Batch 0.873 (0.735) Remain 79:06:45 Loss 0.1020 Accuracy 94.97
+[2023-05-15 05:12:54,426 INFO train_s3dis.py line 336 1708190] Epoch: [47/300][1250/1530] Batch 0.748 (0.733) Remain 78:51:30 Loss 0.1742 Accuracy 91.77
+[2023-05-15 05:15:54,350 INFO train_s3dis.py line 336 1708190] Epoch: [47/300][1500/1530] Batch 0.769 (0.731) Remain 78:34:17 Loss 0.0541 Accuracy 97.51
+[2023-05-15 05:16:15,868 INFO train_s3dis.py line 364 1708190] Train result at epoch [47/300]: mIoU / mAcc / OA 88.98 / 96.63 / 95.35
+[2023-05-15 05:19:12,146 INFO train_s3dis.py line 336 1708190] Epoch: [48/300][250/1530] Batch 0.811 (0.705) Remain 75:45:59 Loss 0.0797 Accuracy 96.39
+[2023-05-15 05:22:08,888 INFO train_s3dis.py line 336 1708190] Epoch: [48/300][500/1530] Batch 0.932 (0.706) Remain 75:49:04 Loss 0.0563 Accuracy 97.46
+[2023-05-15 05:25:09,702 INFO train_s3dis.py line 336 1708190] Epoch: [48/300][750/1530] Batch 0.719 (0.712) Remain 76:23:06 Loss 0.0803 Accuracy 96.27
+[2023-05-15 05:28:22,411 INFO train_s3dis.py line 336 1708190] Epoch: [48/300][1000/1530] Batch 0.732 (0.727) Remain 77:55:09 Loss 0.1333 Accuracy 94.24
+[2023-05-15 05:31:18,940 INFO train_s3dis.py line 336 1708190] Epoch: [48/300][1250/1530] Batch 0.742 (0.722) Remain 77:25:51 Loss 0.0833 Accuracy 96.39
+[2023-05-15 05:34:25,012 INFO train_s3dis.py line 336 1708190] Epoch: [48/300][1500/1530] Batch 0.487 (0.726) Remain 77:46:13 Loss 0.1831 Accuracy 95.75
+[2023-05-15 05:34:47,316 INFO train_s3dis.py line 364 1708190] Train result at epoch [48/300]: mIoU / mAcc / OA 89.37 / 96.94 / 95.49
+[2023-05-15 05:37:47,851 INFO train_s3dis.py line 336 1708190] Epoch: [49/300][250/1530] Batch 0.693 (0.722) Remain 77:17:21 Loss 0.0811 Accuracy 95.86
+[2023-05-15 05:40:48,184 INFO train_s3dis.py line 336 1708190] Epoch: [49/300][500/1530] Batch 0.714 (0.722) Remain 77:11:48 Loss 0.0862 Accuracy 96.27
+[2023-05-15 05:43:42,479 INFO train_s3dis.py line 336 1708190] Epoch: [49/300][750/1530] Batch 0.693 (0.714) Remain 76:16:19 Loss 0.0943 Accuracy 96.20
+[2023-05-15 05:46:57,278 INFO train_s3dis.py line 336 1708190] Epoch: [49/300][1000/1530] Batch 0.682 (0.730) Remain 77:58:32 Loss 0.0912 Accuracy 95.44
+[2023-05-15 05:49:51,231 INFO train_s3dis.py line 336 1708190] Epoch: [49/300][1250/1530] Batch 0.684 (0.723) Remain 77:11:45 Loss 0.0827 Accuracy 95.50
+[2023-05-15 05:52:54,648 INFO train_s3dis.py line 336 1708190] Epoch: [49/300][1500/1530] Batch 0.847 (0.725) Remain 77:19:58 Loss 0.2125 Accuracy 93.29
+[2023-05-15 05:53:15,840 INFO train_s3dis.py line 364 1708190] Train result at epoch [49/300]: mIoU / mAcc / OA 88.89 / 96.70 / 95.31
+[2023-05-15 05:56:20,610 INFO train_s3dis.py line 336 1708190] Epoch: [50/300][250/1530] Batch 0.760 (0.739) Remain 78:47:18 Loss 0.0783 Accuracy 95.91
+[2023-05-15 05:59:36,796 INFO train_s3dis.py line 336 1708190] Epoch: [50/300][500/1530] Batch 0.687 (0.762) Remain 81:10:13 Loss 0.0698 Accuracy 96.74
+[2023-05-15 06:02:35,497 INFO train_s3dis.py line 336 1708190] Epoch: [50/300][750/1530] Batch 0.535 (0.746) Remain 79:26:44 Loss 0.1216 Accuracy 95.18
+[2023-05-15 06:05:34,616 INFO train_s3dis.py line 336 1708190] Epoch: [50/300][1000/1530] Batch 0.554 (0.739) Remain 78:36:11 Loss 0.1066 Accuracy 95.42
+[2023-05-15 06:08:39,020 INFO train_s3dis.py line 336 1708190] Epoch: [50/300][1250/1530] Batch 0.820 (0.739) Remain 78:31:37 Loss 0.1311 Accuracy 93.73
+[2023-05-15 06:11:37,511 INFO train_s3dis.py line 336 1708190] Epoch: [50/300][1500/1530] Batch 0.579 (0.734) Remain 78:02:26 Loss 0.0671 Accuracy 96.50
+[2023-05-15 06:11:59,191 INFO train_s3dis.py line 364 1708190] Train result at epoch [50/300]: mIoU / mAcc / OA 89.80 / 97.06 / 95.62
+[2023-05-15 06:15:06,507 INFO train_s3dis.py line 336 1708190] Epoch: [51/300][250/1530] Batch 0.536 (0.749) Remain 79:33:18 Loss 0.1000 Accuracy 94.82
+[2023-05-15 06:18:01,759 INFO train_s3dis.py line 336 1708190] Epoch: [51/300][500/1530] Batch 0.600 (0.725) Remain 76:56:37 Loss 0.0748 Accuracy 96.38
+[2023-05-15 06:20:56,911 INFO train_s3dis.py line 336 1708190] Epoch: [51/300][750/1530] Batch 0.596 (0.717) Remain 76:01:36 Loss 0.0779 Accuracy 95.11
+[2023-05-15 06:23:56,043 INFO train_s3dis.py line 336 1708190] Epoch: [51/300][1000/1530] Batch 0.647 (0.717) Remain 75:57:56 Loss 0.1067 Accuracy 95.82
+[2023-05-15 06:26:57,658 INFO train_s3dis.py line 336 1708190] Epoch: [51/300][1250/1530] Batch 0.543 (0.719) Remain 76:07:10 Loss 0.0712 Accuracy 97.13
+[2023-05-15 06:29:55,769 INFO train_s3dis.py line 336 1708190] Epoch: [51/300][1500/1530] Batch 0.670 (0.718) Remain 75:57:28 Loss 0.0784 Accuracy 96.12
+[2023-05-15 06:30:17,153 INFO train_s3dis.py line 364 1708190] Train result at epoch [51/300]: mIoU / mAcc / OA 89.15 / 96.78 / 95.40
+[2023-05-15 06:33:24,976 INFO train_s3dis.py line 336 1708190] Epoch: [52/300][250/1530] Batch 0.509 (0.751) Remain 79:27:06 Loss 0.0729 Accuracy 96.28
+[2023-05-15 06:36:27,379 INFO train_s3dis.py line 336 1708190] Epoch: [52/300][500/1530] Batch 0.480 (0.740) Remain 78:15:16 Loss 0.0576 Accuracy 96.94
+[2023-05-15 06:39:34,068 INFO train_s3dis.py line 336 1708190] Epoch: [52/300][750/1530] Batch 0.860 (0.743) Remain 78:25:31 Loss 0.0699 Accuracy 96.17
+[2023-05-15 06:42:36,565 INFO train_s3dis.py line 336 1708190] Epoch: [52/300][1000/1530] Batch 0.875 (0.739) Remain 78:02:32 Loss 0.3030 Accuracy 91.12
+[2023-05-15 06:45:25,966 INFO train_s3dis.py line 336 1708190] Epoch: [52/300][1250/1530] Batch 0.765 (0.727) Remain 76:41:13 Loss 0.1223 Accuracy 95.29
+[2023-05-15 06:48:23,444 INFO train_s3dis.py line 336 1708190] Epoch: [52/300][1500/1530] Batch 0.702 (0.724) Remain 76:20:08 Loss 0.0731 Accuracy 95.55
+[2023-05-15 06:48:43,920 INFO train_s3dis.py line 364 1708190] Train result at epoch [52/300]: mIoU / mAcc / OA 89.29 / 96.84 / 95.46
+[2023-05-15 06:52:04,878 INFO train_s3dis.py line 336 1708190] Epoch: [53/300][250/1530] Batch 0.782 (0.804) Remain 84:39:58 Loss 0.0609 Accuracy 97.22
+[2023-05-15 06:55:02,224 INFO train_s3dis.py line 336 1708190] Epoch: [53/300][500/1530] Batch 0.798 (0.757) Remain 79:38:25 Loss 0.0867 Accuracy 95.16
+[2023-05-15 06:57:58,139 INFO train_s3dis.py line 336 1708190] Epoch: [53/300][750/1530] Batch 0.749 (0.739) Remain 77:43:53 Loss 0.0900 Accuracy 95.04
+[2023-05-15 07:00:59,896 INFO train_s3dis.py line 336 1708190] Epoch: [53/300][1000/1530] Batch 0.587 (0.736) Remain 77:22:00 Loss 0.1773 Accuracy 92.69
+[2023-05-15 07:03:55,390 INFO train_s3dis.py line 336 1708190] Epoch: [53/300][1250/1530] Batch 0.661 (0.729) Remain 76:36:05 Loss 0.0786 Accuracy 96.24
+[2023-05-15 07:07:03,864 INFO train_s3dis.py line 336 1708190] Epoch: [53/300][1500/1530] Batch 1.001 (0.733) Remain 76:59:00 Loss 0.2410 Accuracy 91.92
+[2023-05-15 07:07:24,468 INFO train_s3dis.py line 364 1708190] Train result at epoch [53/300]: mIoU / mAcc / OA 88.48 / 96.47 / 95.11
+[2023-05-15 07:10:30,280 INFO train_s3dis.py line 336 1708190] Epoch: [54/300][250/1530] Batch 0.923 (0.743) Remain 77:58:08 Loss 0.1341 Accuracy 95.60
+[2023-05-15 07:13:26,992 INFO train_s3dis.py line 336 1708190] Epoch: [54/300][500/1530] Batch 0.411 (0.725) Remain 76:00:37 Loss 0.0694 Accuracy 96.84
+[2023-05-15 07:16:33,352 INFO train_s3dis.py line 336 1708190] Epoch: [54/300][750/1530] Batch 0.843 (0.732) Remain 76:40:20 Loss 0.0795 Accuracy 96.30
+[2023-05-15 07:19:37,545 INFO train_s3dis.py line 336 1708190] Epoch: [54/300][1000/1530] Batch 0.681 (0.733) Remain 76:45:02 Loss 0.0650 Accuracy 96.31
+[2023-05-15 07:22:36,364 INFO train_s3dis.py line 336 1708190] Epoch: [54/300][1250/1530] Batch 0.872 (0.730) Remain 76:19:37 Loss 0.1443 Accuracy 95.09
+[2023-05-15 07:25:42,374 INFO train_s3dis.py line 336 1708190] Epoch: [54/300][1500/1530] Batch 0.631 (0.732) Remain 76:31:47 Loss 0.2524 Accuracy 91.81
+[2023-05-15 07:26:02,320 INFO train_s3dis.py line 364 1708190] Train result at epoch [54/300]: mIoU / mAcc / OA 89.06 / 96.73 / 95.36
+[2023-05-15 07:29:08,593 INFO train_s3dis.py line 336 1708190] Epoch: [55/300][250/1530] Batch 0.850 (0.745) Remain 77:50:45 Loss 0.0645 Accuracy 96.57
+[2023-05-15 07:32:06,146 INFO train_s3dis.py line 336 1708190] Epoch: [55/300][500/1530] Batch 0.813 (0.728) Remain 75:58:26 Loss 0.0935 Accuracy 95.67
+[2023-05-15 07:35:10,088 INFO train_s3dis.py line 336 1708190] Epoch: [55/300][750/1530] Batch 0.683 (0.730) Remain 76:12:21 Loss 0.0868 Accuracy 96.30
+[2023-05-15 07:38:09,740 INFO train_s3dis.py line 336 1708190] Epoch: [55/300][1000/1530] Batch 0.768 (0.727) Remain 75:50:56 Loss 0.0853 Accuracy 95.67
+[2023-05-15 07:41:08,254 INFO train_s3dis.py line 336 1708190] Epoch: [55/300][1250/1530] Batch 0.709 (0.725) Remain 75:31:12 Loss 0.2604 Accuracy 93.34
+[2023-05-15 07:44:03,400 INFO train_s3dis.py line 336 1708190] Epoch: [55/300][1500/1530] Batch 0.787 (0.721) Remain 75:03:01 Loss 0.1363 Accuracy 95.33
+[2023-05-15 07:44:27,355 INFO train_s3dis.py line 364 1708190] Train result at epoch [55/300]: mIoU / mAcc / OA 89.46 / 96.87 / 95.53
+[2023-05-15 07:47:34,272 INFO train_s3dis.py line 336 1708190] Epoch: [56/300][250/1530] Batch 0.595 (0.748) Remain 77:47:50 Loss 0.0962 Accuracy 95.56
+[2023-05-15 07:50:28,755 INFO train_s3dis.py line 336 1708190] Epoch: [56/300][500/1530] Batch 0.645 (0.723) Remain 75:09:37 Loss 0.0746 Accuracy 96.41
+[2023-05-15 07:53:29,530 INFO train_s3dis.py line 336 1708190] Epoch: [56/300][750/1530] Batch 0.494 (0.723) Remain 75:07:14 Loss 0.1160 Accuracy 93.32
+[2023-05-15 07:56:28,128 INFO train_s3dis.py line 336 1708190] Epoch: [56/300][1000/1530] Batch 0.804 (0.721) Remain 74:50:59 Loss 0.0615 Accuracy 96.54
+[2023-05-15 07:59:27,463 INFO train_s3dis.py line 336 1708190] Epoch: [56/300][1250/1530] Batch 0.827 (0.720) Remain 74:43:42 Loss 0.1414 Accuracy 94.76
+[2023-05-15 08:02:27,297 INFO train_s3dis.py line 336 1708190] Epoch: [56/300][1500/1530] Batch 0.540 (0.720) Remain 74:39:56 Loss 0.0829 Accuracy 96.00
+[2023-05-15 08:02:52,807 INFO train_s3dis.py line 364 1708190] Train result at epoch [56/300]: mIoU / mAcc / OA 89.65 / 96.98 / 95.48
+[2023-05-15 08:05:57,269 INFO train_s3dis.py line 336 1708190] Epoch: [57/300][250/1530] Batch 0.676 (0.738) Remain 76:27:45 Loss 0.0543 Accuracy 97.07
+[2023-05-15 08:08:57,009 INFO train_s3dis.py line 336 1708190] Epoch: [57/300][500/1530] Batch 0.731 (0.728) Remain 75:26:01 Loss 0.0649 Accuracy 96.54
+[2023-05-15 08:11:52,987 INFO train_s3dis.py line 336 1708190] Epoch: [57/300][750/1530] Batch 0.633 (0.720) Remain 74:32:18 Loss 0.2822 Accuracy 92.54
+[2023-05-15 08:14:56,362 INFO train_s3dis.py line 336 1708190] Epoch: [57/300][1000/1530] Batch 0.702 (0.724) Remain 74:49:52 Loss 0.0939 Accuracy 96.03
+[2023-05-15 08:17:52,766 INFO train_s3dis.py line 336 1708190] Epoch: [57/300][1250/1530] Batch 0.760 (0.720) Remain 74:24:36 Loss 0.0586 Accuracy 96.74
+[2023-05-15 08:20:54,657 INFO train_s3dis.py line 336 1708190] Epoch: [57/300][1500/1530] Batch 0.832 (0.721) Remain 74:29:27 Loss 0.1255 Accuracy 95.53
+[2023-05-15 08:21:16,625 INFO train_s3dis.py line 364 1708190] Train result at epoch [57/300]: mIoU / mAcc / OA 88.25 / 96.50 / 95.28
+[2023-05-15 08:24:17,951 INFO train_s3dis.py line 336 1708190] Epoch: [58/300][250/1530] Batch 0.835 (0.725) Remain 74:51:14 Loss 0.0931 Accuracy 95.86
+[2023-05-15 08:27:15,524 INFO train_s3dis.py line 336 1708190] Epoch: [58/300][500/1530] Batch 0.869 (0.718) Remain 74:01:47 Loss 0.0842 Accuracy 96.11
+[2023-05-15 08:30:12,458 INFO train_s3dis.py line 336 1708190] Epoch: [58/300][750/1530] Batch 0.603 (0.714) Remain 73:38:04 Loss 0.0994 Accuracy 95.22
+[2023-05-15 08:33:16,261 INFO train_s3dis.py line 336 1708190] Epoch: [58/300][1000/1530] Batch 0.495 (0.720) Remain 74:07:11 Loss 0.1002 Accuracy 95.74
+[2023-05-15 08:36:11,054 INFO train_s3dis.py line 336 1708190] Epoch: [58/300][1250/1530] Batch 0.831 (0.716) Remain 73:38:55 Loss 0.0609 Accuracy 97.10
+[2023-05-15 08:39:03,598 INFO train_s3dis.py line 336 1708190] Epoch: [58/300][1500/1530] Batch 0.892 (0.711) Remain 73:09:51 Loss 0.0585 Accuracy 96.76
+[2023-05-15 08:39:24,810 INFO train_s3dis.py line 364 1708190] Train result at epoch [58/300]: mIoU / mAcc / OA 91.22 / 97.48 / 96.11
+[2023-05-15 08:42:31,474 INFO train_s3dis.py line 336 1708190] Epoch: [59/300][250/1530] Batch 0.542 (0.747) Remain 76:44:25 Loss 0.2277 Accuracy 89.08
+[2023-05-15 08:45:34,555 INFO train_s3dis.py line 336 1708190] Epoch: [59/300][500/1530] Batch 0.825 (0.739) Remain 75:57:10 Loss 0.0932 Accuracy 94.39
+[2023-05-15 08:48:26,250 INFO train_s3dis.py line 336 1708190] Epoch: [59/300][750/1530] Batch 0.802 (0.722) Remain 74:05:54 Loss 0.0615 Accuracy 96.58
+[2023-05-15 08:51:22,960 INFO train_s3dis.py line 336 1708190] Epoch: [59/300][1000/1530] Batch 0.487 (0.718) Remain 73:39:42 Loss 0.0646 Accuracy 97.02
+[2023-05-15 08:54:20,238 INFO train_s3dis.py line 336 1708190] Epoch: [59/300][1250/1530] Batch 0.729 (0.716) Remain 73:25:35 Loss 0.1006 Accuracy 94.89
+[2023-05-15 08:57:18,409 INFO train_s3dis.py line 336 1708190] Epoch: [59/300][1500/1530] Batch 0.491 (0.716) Remain 73:18:51 Loss 0.0859 Accuracy 96.33
+[2023-05-15 08:57:40,269 INFO train_s3dis.py line 364 1708190] Train result at epoch [59/300]: mIoU / mAcc / OA 88.64 / 96.62 / 95.29
+[2023-05-15 09:00:44,857 INFO train_s3dis.py line 336 1708190] Epoch: [60/300][250/1530] Batch 0.783 (0.738) Remain 75:34:24 Loss 0.0570 Accuracy 97.35
+[2023-05-15 09:03:46,445 INFO train_s3dis.py line 336 1708190] Epoch: [60/300][500/1530] Batch 0.664 (0.732) Remain 74:54:31 Loss 0.1525 Accuracy 92.77
+[2023-05-15 09:06:42,684 INFO train_s3dis.py line 336 1708190] Epoch: [60/300][750/1530] Batch 0.496 (0.723) Remain 73:55:29 Loss 0.1084 Accuracy 95.07
+[2023-05-15 09:09:40,323 INFO train_s3dis.py line 336 1708190] Epoch: [60/300][1000/1530] Batch 0.841 (0.720) Remain 73:33:04 Loss 0.1229 Accuracy 95.53
+[2023-05-15 09:12:37,701 INFO train_s3dis.py line 336 1708190] Epoch: [60/300][1250/1530] Batch 0.848 (0.718) Remain 73:17:09 Loss 0.1323 Accuracy 94.29
+[2023-05-15 09:15:37,281 INFO train_s3dis.py line 336 1708190] Epoch: [60/300][1500/1530] Batch 0.833 (0.718) Remain 73:14:32 Loss 0.0931 Accuracy 96.71
+[2023-05-15 09:15:58,608 INFO train_s3dis.py line 364 1708190] Train result at epoch [60/300]: mIoU / mAcc / OA 89.39 / 96.85 / 95.52
+[2023-05-15 09:19:09,454 INFO train_s3dis.py line 336 1708190] Epoch: [61/300][250/1530] Batch 0.807 (0.763) Remain 77:48:40 Loss 0.0976 Accuracy 95.61
+[2023-05-15 09:22:03,779 INFO train_s3dis.py line 336 1708190] Epoch: [61/300][500/1530] Batch 0.604 (0.730) Remain 74:23:34 Loss 0.0832 Accuracy 95.79
+[2023-05-15 09:25:00,494 INFO train_s3dis.py line 336 1708190] Epoch: [61/300][750/1530] Batch 0.886 (0.723) Remain 73:32:43 Loss 0.0676 Accuracy 97.24
+[2023-05-15 09:27:56,987 INFO train_s3dis.py line 336 1708190] Epoch: [61/300][1000/1530] Batch 0.873 (0.718) Remain 73:04:28 Loss 0.1217 Accuracy 94.55
+[2023-05-15 09:30:55,350 INFO train_s3dis.py line 336 1708190] Epoch: [61/300][1250/1530] Batch 0.759 (0.717) Remain 72:55:28 Loss 0.0616 Accuracy 96.49
+[2023-05-15 09:33:56,812 INFO train_s3dis.py line 336 1708190] Epoch: [61/300][1500/1530] Batch 0.712 (0.719) Remain 73:01:04 Loss 0.0645 Accuracy 96.66
+[2023-05-15 09:34:18,198 INFO train_s3dis.py line 364 1708190] Train result at epoch [61/300]: mIoU / mAcc / OA 89.60 / 96.95 / 95.53
+[2023-05-15 09:34:18,200 INFO train_s3dis.py line 371 1708190] >>>>>>>>>>>>>>>> Start Evaluation >>>>>>>>>>>>>>>>
+[2023-05-15 09:50:17,859 INFO train_s3dis.py line 420 1708190] Val result: mIoU / mAcc / OA 65.08 / 74.33 / 88.13
+[2023-05-15 09:50:17,859 INFO train_s3dis.py line 422 1708190] Val loss: 0.8896
+[2023-05-15 09:50:17,860 INFO train_s3dis.py line 424 1708190] Class_0 Result: IoU / Acc 91.78/96.24
+[2023-05-15 09:50:17,860 INFO train_s3dis.py line 424 1708190] Class_1 Result: IoU / Acc 97.11/98.01
+[2023-05-15 09:50:17,860 INFO train_s3dis.py line 424 1708190] Class_2 Result: IoU / Acc 82.22/90.74
+[2023-05-15 09:50:17,860 INFO train_s3dis.py line 424 1708190] Class_3 Result: IoU / Acc 0.00/0.00
+[2023-05-15 09:50:17,860 INFO train_s3dis.py line 424 1708190] Class_4 Result: IoU / Acc 33.28/45.24
+[2023-05-15 09:50:17,860 INFO train_s3dis.py line 424 1708190] Class_5 Result: IoU / Acc 59.38/66.57
+[2023-05-15 09:50:17,860 INFO train_s3dis.py line 424 1708190] Class_6 Result: IoU / Acc 68.66/92.09
+[2023-05-15 09:50:17,860 INFO train_s3dis.py line 424 1708190] Class_7 Result: IoU / Acc 73.15/86.10
+[2023-05-15 09:50:17,860 INFO train_s3dis.py line 424 1708190] Class_8 Result: IoU / Acc 86.98/94.59
+[2023-05-15 09:50:17,861 INFO train_s3dis.py line 424 1708190] Class_9 Result: IoU / Acc 61.01/67.19
+[2023-05-15 09:50:17,861 INFO train_s3dis.py line 424 1708190] Class_10 Result: IoU / Acc 72.89/82.11
+[2023-05-15 09:50:17,861 INFO train_s3dis.py line 424 1708190] Class_11 Result: IoU / Acc 64.44/75.13
+[2023-05-15 09:50:17,861 INFO train_s3dis.py line 424 1708190] Class_12 Result: IoU / Acc 55.14/72.28
+[2023-05-15 09:50:17,861 INFO train_s3dis.py line 426 1708190] <<<<<<<<<<<<<<<<< End Evaluation <<<<<<<<<<<<<<<<<
+[2023-05-15 09:50:17,942 INFO train_s3dis.py line 264 1708190] Best validation mIoU updated to: 65.08
+[2023-05-15 09:53:27,465 INFO train_s3dis.py line 336 1708190] Epoch: [62/300][250/1530] Batch 0.800 (0.758) Remain 76:57:00 Loss 0.0664 Accuracy 96.32
+[2023-05-15 09:56:39,712 INFO train_s3dis.py line 336 1708190] Epoch: [62/300][500/1530] Batch 0.600 (0.764) Remain 77:27:01 Loss 0.0761 Accuracy 96.09
+[2023-05-15 10:00:00,579 INFO train_s3dis.py line 336 1708190] Epoch: [62/300][750/1530] Batch 0.547 (0.777) Remain 78:44:46 Loss 0.3090 Accuracy 93.65
+[2023-05-15 10:03:00,239 INFO train_s3dis.py line 336 1708190] Epoch: [62/300][1000/1530] Batch 0.809 (0.762) Remain 77:13:05 Loss 0.0559 Accuracy 97.29
+[2023-05-15 10:06:00,374 INFO train_s3dis.py line 336 1708190] Epoch: [62/300][1250/1530] Batch 0.704 (0.754) Remain 76:19:11 Loss 0.1089 Accuracy 95.23
+[2023-05-15 10:09:14,699 INFO train_s3dis.py line 336 1708190] Epoch: [62/300][1500/1530] Batch 0.573 (0.758) Remain 76:39:40 Loss 0.0475 Accuracy 97.44
+[2023-05-15 10:09:36,477 INFO train_s3dis.py line 364 1708190] Train result at epoch [62/300]: mIoU / mAcc / OA 90.22 / 97.15 / 95.84
+[2023-05-15 10:09:36,478 INFO train_s3dis.py line 371 1708190] >>>>>>>>>>>>>>>> Start Evaluation >>>>>>>>>>>>>>>>
+[2023-05-15 10:25:36,592 INFO train_s3dis.py line 420 1708190] Val result: mIoU / mAcc / OA 62.90 / 72.67 / 87.48
+[2023-05-15 10:25:36,592 INFO train_s3dis.py line 422 1708190] Val loss: 1.0401
+[2023-05-15 10:25:36,592 INFO train_s3dis.py line 424 1708190] Class_0 Result: IoU / Acc 91.31/95.66
+[2023-05-15 10:25:36,592 INFO train_s3dis.py line 424 1708190] Class_1 Result: IoU / Acc 97.30/98.33
+[2023-05-15 10:25:36,593 INFO train_s3dis.py line 424 1708190] Class_2 Result: IoU / Acc 82.01/91.49
+[2023-05-15 10:25:36,593 INFO train_s3dis.py line 424 1708190] Class_3 Result: IoU / Acc 0.00/0.00
+[2023-05-15 10:25:36,593 INFO train_s3dis.py line 424 1708190] Class_4 Result: IoU / Acc 27.99/35.05
+[2023-05-15 10:25:36,593 INFO train_s3dis.py line 424 1708190] Class_5 Result: IoU / Acc 57.19/61.90
+[2023-05-15 10:25:36,593 INFO train_s3dis.py line 424 1708190] Class_6 Result: IoU / Acc 62.53/89.65
+[2023-05-15 10:25:36,593 INFO train_s3dis.py line 424 1708190] Class_7 Result: IoU / Acc 71.84/83.22
+[2023-05-15 10:25:36,593 INFO train_s3dis.py line 424 1708190] Class_8 Result: IoU / Acc 85.94/95.82
+[2023-05-15 10:25:36,593 INFO train_s3dis.py line 424 1708190] Class_9 Result: IoU / Acc 54.38/64.49
+[2023-05-15 10:25:36,594 INFO train_s3dis.py line 424 1708190] Class_10 Result: IoU / Acc 71.15/83.32
+[2023-05-15 10:25:36,594 INFO train_s3dis.py line 424 1708190] Class_11 Result: IoU / Acc 63.16/78.03
+[2023-05-15 10:25:36,594 INFO train_s3dis.py line 424 1708190] Class_12 Result: IoU / Acc 52.90/67.77
+[2023-05-15 10:25:36,594 INFO train_s3dis.py line 426 1708190] <<<<<<<<<<<<<<<<< End Evaluation <<<<<<<<<<<<<<<<<
+[2023-05-15 10:28:41,913 INFO train_s3dis.py line 336 1708190] Epoch: [63/300][250/1530] Batch 0.674 (0.741) Remain 74:55:38 Loss 0.0814 Accuracy 96.31
+[2023-05-15 10:31:45,030 INFO train_s3dis.py line 336 1708190] Epoch: [63/300][500/1530] Batch 0.770 (0.737) Remain 74:25:53 Loss 0.0736 Accuracy 96.47
+[2023-05-15 10:34:51,531 INFO train_s3dis.py line 336 1708190] Epoch: [63/300][750/1530] Batch 0.612 (0.740) Remain 74:41:16 Loss 0.1098 Accuracy 95.11
+[2023-05-15 10:37:44,018 INFO train_s3dis.py line 336 1708190] Epoch: [63/300][1000/1530] Batch 0.900 (0.727) Remain 73:22:35 Loss 0.0938 Accuracy 95.52
+[2023-05-15 10:40:45,346 INFO train_s3dis.py line 336 1708190] Epoch: [63/300][1250/1530] Batch 0.509 (0.727) Remain 73:17:00 Loss 0.2625 Accuracy 90.10
+[2023-05-15 10:43:43,113 INFO train_s3dis.py line 336 1708190] Epoch: [63/300][1500/1530] Batch 0.877 (0.724) Remain 72:57:55 Loss 0.0758 Accuracy 96.27
+[2023-05-15 10:44:07,079 INFO train_s3dis.py line 364 1708190] Train result at epoch [63/300]: mIoU / mAcc / OA 88.94 / 96.74 / 95.31
+[2023-05-15 10:44:07,081 INFO train_s3dis.py line 371 1708190] >>>>>>>>>>>>>>>> Start Evaluation >>>>>>>>>>>>>>>>
+[2023-05-15 11:00:07,769 INFO train_s3dis.py line 420 1708190] Val result: mIoU / mAcc / OA 60.87 / 72.02 / 86.77
+[2023-05-15 11:00:07,770 INFO train_s3dis.py line 422 1708190] Val loss: 1.0965
+[2023-05-15 11:00:07,770 INFO train_s3dis.py line 424 1708190] Class_0 Result: IoU / Acc 90.50/95.85
+[2023-05-15 11:00:07,770 INFO train_s3dis.py line 424 1708190] Class_1 Result: IoU / Acc 96.42/97.63
+[2023-05-15 11:00:07,770 INFO train_s3dis.py line 424 1708190] Class_2 Result: IoU / Acc 81.14/90.00
+[2023-05-15 11:00:07,770 INFO train_s3dis.py line 424 1708190] Class_3 Result: IoU / Acc 0.00/0.00
+[2023-05-15 11:00:07,770 INFO train_s3dis.py line 424 1708190] Class_4 Result: IoU / Acc 22.87/27.31
+[2023-05-15 11:00:07,770 INFO train_s3dis.py line 424 1708190] Class_5 Result: IoU / Acc 54.71/59.19
+[2023-05-15 11:00:07,770 INFO train_s3dis.py line 424 1708190] Class_6 Result: IoU / Acc 62.56/92.56
+[2023-05-15 11:00:07,770 INFO train_s3dis.py line 424 1708190] Class_7 Result: IoU / Acc 70.48/83.10
+[2023-05-15 11:00:07,770 INFO train_s3dis.py line 424 1708190] Class_8 Result: IoU / Acc 83.11/96.04
+[2023-05-15 11:00:07,770 INFO train_s3dis.py line 424 1708190] Class_9 Result: IoU / Acc 53.52/60.33
+[2023-05-15 11:00:07,770 INFO train_s3dis.py line 424 1708190] Class_10 Result: IoU / Acc 71.49/82.86
+[2023-05-15 11:00:07,770 INFO train_s3dis.py line 424 1708190] Class_11 Result: IoU / Acc 53.10/84.51
+[2023-05-15 11:00:07,770 INFO train_s3dis.py line 424 1708190] Class_12 Result: IoU / Acc 51.47/66.86
+[2023-05-15 11:00:07,770 INFO train_s3dis.py line 426 1708190] <<<<<<<<<<<<<<<<< End Evaluation <<<<<<<<<<<<<<<<<
+[2023-05-15 11:03:10,514 INFO train_s3dis.py line 336 1708190] Epoch: [64/300][250/1530] Batch 0.811 (0.731) Remain 73:34:33 Loss 0.0633 Accuracy 96.73
+[2023-05-15 11:06:10,111 INFO train_s3dis.py line 336 1708190] Epoch: [64/300][500/1530] Batch 0.777 (0.725) Remain 72:53:32 Loss 0.0476 Accuracy 97.70
+[2023-05-15 11:09:03,527 INFO train_s3dis.py line 336 1708190] Epoch: [64/300][750/1530] Batch 0.541 (0.714) Remain 71:48:10 Loss 0.0895 Accuracy 94.89
+[2023-05-15 11:12:02,781 INFO train_s3dis.py line 336 1708190] Epoch: [64/300][1000/1530] Batch 0.852 (0.715) Remain 71:49:13 Loss 0.0655 Accuracy 97.43
+[2023-05-15 11:15:03,437 INFO train_s3dis.py line 336 1708190] Epoch: [64/300][1250/1530] Batch 0.813 (0.717) Remain 71:55:25 Loss 0.1366 Accuracy 93.99
+[2023-05-15 11:18:04,580 INFO train_s3dis.py line 336 1708190] Epoch: [64/300][1500/1530] Batch 0.616 (0.718) Remain 72:00:29 Loss 0.0922 Accuracy 95.16
+[2023-05-15 11:18:25,526 INFO train_s3dis.py line 364 1708190] Train result at epoch [64/300]: mIoU / mAcc / OA 90.91 / 97.39 / 96.03
+[2023-05-15 11:18:25,528 INFO train_s3dis.py line 371 1708190] >>>>>>>>>>>>>>>> Start Evaluation >>>>>>>>>>>>>>>>
+[2023-05-15 11:34:24,598 INFO train_s3dis.py line 420 1708190] Val result: mIoU / mAcc / OA 62.26 / 72.66 / 87.06
+[2023-05-15 11:34:24,598 INFO train_s3dis.py line 422 1708190] Val loss: 1.0162
+[2023-05-15 11:34:24,599 INFO train_s3dis.py line 424 1708190] Class_0 Result: IoU / Acc 90.81/96.83
+[2023-05-15 11:34:24,599 INFO train_s3dis.py line 424 1708190] Class_1 Result: IoU / Acc 97.42/98.36
+[2023-05-15 11:34:24,599 INFO train_s3dis.py line 424 1708190] Class_2 Result: IoU / Acc 81.62/88.88
+[2023-05-15 11:34:24,599 INFO train_s3dis.py line 424 1708190] Class_3 Result: IoU / Acc 0.00/0.00
+[2023-05-15 11:34:24,599 INFO train_s3dis.py line 424 1708190] Class_4 Result: IoU / Acc 31.74/44.85
+[2023-05-15 11:34:24,599 INFO train_s3dis.py line 424 1708190] Class_5 Result: IoU / Acc 55.62/61.29
+[2023-05-15 11:34:24,599 INFO train_s3dis.py line 424 1708190] Class_6 Result: IoU / Acc 58.17/95.40
+[2023-05-15 11:34:24,600 INFO train_s3dis.py line 424 1708190] Class_7 Result: IoU / Acc 70.20/88.76
+[2023-05-15 11:34:24,600 INFO train_s3dis.py line 424 1708190] Class_8 Result: IoU / Acc 83.43/95.25
+[2023-05-15 11:34:24,600 INFO train_s3dis.py line 424 1708190] Class_9 Result: IoU / Acc 54.34/58.22
+[2023-05-15 11:34:24,600 INFO train_s3dis.py line 424 1708190] Class_10 Result: IoU / Acc 71.05/81.73
+[2023-05-15 11:34:24,600 INFO train_s3dis.py line 424 1708190] Class_11 Result: IoU / Acc 62.45/68.86
+[2023-05-15 11:34:24,600 INFO train_s3dis.py line 424 1708190] Class_12 Result: IoU / Acc 52.55/66.19
+[2023-05-15 11:34:24,600 INFO train_s3dis.py line 426 1708190] <<<<<<<<<<<<<<<<< End Evaluation <<<<<<<<<<<<<<<<<
+[2023-05-15 11:37:27,712 INFO train_s3dis.py line 336 1708190] Epoch: [65/300][250/1530] Batch 0.616 (0.732) Remain 73:24:44 Loss 0.0947 Accuracy 94.28
+[2023-05-15 11:40:24,930 INFO train_s3dis.py line 336 1708190] Epoch: [65/300][500/1530] Batch 0.454 (0.721) Remain 72:10:53 Loss 0.1465 Accuracy 93.39
+[2023-05-15 11:43:18,865 INFO train_s3dis.py line 336 1708190] Epoch: [65/300][750/1530] Batch 0.927 (0.712) Remain 71:18:00 Loss 0.1019 Accuracy 96.18
+[2023-05-15 11:46:18,355 INFO train_s3dis.py line 336 1708190] Epoch: [65/300][1000/1530] Batch 0.914 (0.714) Remain 71:23:27 Loss 0.2636 Accuracy 93.74
+[2023-05-15 11:49:17,142 INFO train_s3dis.py line 336 1708190] Epoch: [65/300][1250/1530] Batch 0.810 (0.714) Remain 71:22:09 Loss 0.1523 Accuracy 94.18
+[2023-05-15 11:52:11,100 INFO train_s3dis.py line 336 1708190] Epoch: [65/300][1500/1530] Batch 0.841 (0.711) Remain 71:01:00 Loss 0.0497 Accuracy 97.53
+[2023-05-15 11:52:32,633 INFO train_s3dis.py line 364 1708190] Train result at epoch [65/300]: mIoU / mAcc / OA 89.52 / 96.86 / 95.60
+[2023-05-15 11:52:32,635 INFO train_s3dis.py line 371 1708190] >>>>>>>>>>>>>>>> Start Evaluation >>>>>>>>>>>>>>>>
+[2023-05-15 12:08:34,735 INFO train_s3dis.py line 420 1708190] Val result: mIoU / mAcc / OA 62.38 / 71.87 / 87.06
+[2023-05-15 12:08:34,747 INFO train_s3dis.py line 422 1708190] Val loss: 1.1168
+[2023-05-15 12:08:34,747 INFO train_s3dis.py line 424 1708190] Class_0 Result: IoU / Acc 91.16/94.32
+[2023-05-15 12:08:34,747 INFO train_s3dis.py line 424 1708190] Class_1 Result: IoU / Acc 97.44/98.63
+[2023-05-15 12:08:34,747 INFO train_s3dis.py line 424 1708190] Class_2 Result: IoU / Acc 80.84/91.43
+[2023-05-15 12:08:34,747 INFO train_s3dis.py line 424 1708190] Class_3 Result: IoU / Acc 0.00/0.00
+[2023-05-15 12:08:34,747 INFO train_s3dis.py line 424 1708190] Class_4 Result: IoU / Acc 24.23/30.10
+[2023-05-15 12:08:34,747 INFO train_s3dis.py line 424 1708190] Class_5 Result: IoU / Acc 56.32/61.41
+[2023-05-15 12:08:34,747 INFO train_s3dis.py line 424 1708190] Class_6 Result: IoU / Acc 58.06/86.80
+[2023-05-15 12:08:34,747 INFO train_s3dis.py line 424 1708190] Class_7 Result: IoU / Acc 69.69/89.11
+[2023-05-15 12:08:34,747 INFO train_s3dis.py line 424 1708190] Class_8 Result: IoU / Acc 85.51/95.99
+[2023-05-15 12:08:34,747 INFO train_s3dis.py line 424 1708190] Class_9 Result: IoU / Acc 58.81/62.05
+[2023-05-15 12:08:34,747 INFO train_s3dis.py line 424 1708190] Class_10 Result: IoU / Acc 72.64/81.72
+[2023-05-15 12:08:34,747 INFO train_s3dis.py line 424 1708190] Class_11 Result: IoU / Acc 64.26/75.07
+[2023-05-15 12:08:34,747 INFO train_s3dis.py line 424 1708190] Class_12 Result: IoU / Acc 51.96/67.69
+[2023-05-15 12:08:34,747 INFO train_s3dis.py line 426 1708190] <<<<<<<<<<<<<<<<< End Evaluation <<<<<<<<<<<<<<<<<
+[2023-05-15 12:11:35,633 INFO train_s3dis.py line 336 1708190] Epoch: [66/300][250/1530] Batch 0.565 (0.724) Remain 72:12:45 Loss 0.1276 Accuracy 94.01
+[2023-05-15 12:14:32,372 INFO train_s3dis.py line 336 1708190] Epoch: [66/300][500/1530] Batch 0.512 (0.715) Remain 71:20:07 Loss 0.0677 Accuracy 96.39
+[2023-05-15 12:17:30,233 INFO train_s3dis.py line 336 1708190] Epoch: [66/300][750/1530] Batch 0.738 (0.714) Remain 71:09:34 Loss 0.2007 Accuracy 94.12
+[2023-05-15 12:20:32,840 INFO train_s3dis.py line 336 1708190] Epoch: [66/300][1000/1530] Batch 0.769 (0.718) Remain 71:31:10 Loss 0.0739 Accuracy 97.17

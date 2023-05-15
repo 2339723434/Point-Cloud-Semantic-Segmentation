@@ -2,7 +2,7 @@
 
 export PYTHONPATH=./
 
-log_dir='CBFLNet_A5'
+log_dir='CBFLNet_A5_k=16'
 
 CUDA_VISIBLE_DEVICES=1 python3 tool/train_s3dis.py --log_dir ${log_dir} --dataset S3DIS \
           --batch_size 4 \
